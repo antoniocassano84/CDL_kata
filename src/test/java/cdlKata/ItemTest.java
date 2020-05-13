@@ -1,11 +1,11 @@
 package cdlKata;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ItemTest {
 
   private Item itemA;
@@ -22,15 +22,8 @@ class ItemTest {
     System.out.println("Setup: Four Items created!");
   }
 
-  @AfterEach
-  void teardown() {
-    itemA = null;
-    itemB = null;
-    itemC = null;
-    itemD = null;
-  }
-
   @Test
+  @Order(1)
   void getPrice() {
     assertEquals(0.50, itemA.getPrice());
     assertEquals(0.30, itemB.getPrice());
@@ -39,6 +32,7 @@ class ItemTest {
   }
 
   @Test
+  @Order(2)
   void getAmount() {
     assertEquals(0, itemA.getAmount());
     assertEquals(0, itemB.getAmount());
@@ -47,6 +41,16 @@ class ItemTest {
   }
 
   @Test
+  @Order(3)
+  void getSubTotalItem() {
+    assertEquals(0, itemA.getSubTotalItem());
+    assertEquals(0, itemB.getSubTotalItem());
+    assertEquals(0, itemC.getSubTotalItem());
+    assertEquals(0, itemD.getSubTotalItem());
+  }
+
+  @Test
+  @Order(4)
   void incrementAmountByOne() {
     itemA.incrementAmountBYOne();
     itemB.incrementAmountBYOne();
@@ -59,6 +63,7 @@ class ItemTest {
   }
 
   @Test
+  @Order(5)
   void setAmount() {
     itemA.setAmount(100);
     itemB.setAmount(0);
@@ -71,30 +76,25 @@ class ItemTest {
   }
 
   @Test
+  @Order(6)
   void setAmountNegative() {
     assertThrows(IllegalArgumentException.class, () -> itemA.setAmount(-200));
   }
 
   @Test
-  void getSubTotalItem() {
-    assertEquals(0, itemA.getSubTotalItem());
-    assertEquals(0, itemB.getSubTotalItem());
-    assertEquals(0, itemC.getSubTotalItem());
-    assertEquals(0, itemD.getSubTotalItem());
-  }
-
-  @Test
+  @Order(7)
   void testToString() {
-    assertEquals("A{p:0.5, q:0}", itemA.toString());
+    assertEquals("A{p:0.5, q:100}", itemA.toString());
     assertEquals("B{p:0.3, q:0}", itemB.toString());
-    assertEquals("C{p:0.2, q:0}", itemC.toString());
-    assertEquals("D{p:0.15, q:0}", itemD.toString());
+    assertEquals("C{p:0.2, q:1000}", itemC.toString());
+    assertEquals("D{p:0.15, q:200}", itemD.toString());
   }
 
   @Test
+  @Order(8)
   void testToStringAfterIncrement() {
     itemA.incrementAmountBYOne();
-    assertEquals("A{p:0.5, q:1}", itemA.toString());
+    assertEquals("A{p:0.5, q:101}", itemA.toString());
   }
 
 }
