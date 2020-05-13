@@ -21,7 +21,10 @@ public enum Item {
   }
 
   public void setAmount(int amount) {
-    this.amount = amount;
+    if(amount < 0)
+      throw new IllegalArgumentException("Amount must be non negative!");
+    else
+      this.amount = amount;
   }
 
   public void incrementAmountBYOne() {
