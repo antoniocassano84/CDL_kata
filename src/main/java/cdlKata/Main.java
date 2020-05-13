@@ -37,15 +37,17 @@ public class Main {
     char ch;
     double total = 0.0;
 
+    System.out.println("Your basket is empty");
+
     do {
       ch = readCharFromKeyboard();
       if(ch != 'q' && ch != 'Q') {
-        basket.addToBasket(ch);
-        basket.printItems();
+        if (!basket.addToBasket(ch)) throw new IllegalArgumentException("Enter a char between A and D!");
+        System.out.print(basket);
         total = basket.checkOut(parseRules("src\\main\\resources\\deals.txt"));
-        System.out.println("\nRunning Total = " + String.format("%.2f", total));
-      }
-    } while (ch != 'q' && ch != 'Q');
+        System.out.println("Running Total = " + String.format("%.2f", total));
+        }
+      } while (ch != 'q' && ch != 'Q');
     System.out.println("Final Bill = " + String.format("%.2f", total));
   }
 }

@@ -10,10 +10,6 @@ public class Basket {
     items = new ArrayList<>();
   }
 
-  public void printItems() {
-    for(Item i : this.items) System.out.print(i + "; ");
-  }
-
   private int getItemIndex(Item item, List<Item> itemList) {
     int index = -1;
     for(int i = 0; i<itemList.size(); i++)
@@ -22,18 +18,20 @@ public class Basket {
     return index;
   }
 
-
-
-  public void addToBasket(char ch) {
-    Item item = Item.valueOf(Character.toString(ch));
-    int index = getItemIndex(item, this.items);
-    if(index == -1) {
-      item.incrementAmountBYOne();
-      this.items.add(item);
-    } else {
+  public boolean addToBasket(char ch) {
+    if(ch < 'A' || ch > 'D') return false;
+    else {
+      Item item = Item.valueOf(Character.toString(ch));
+      int index = getItemIndex(item, this.items);
+      if (index == -1) {
+        item.incrementAmountBYOne();
+        this.items.add(item);
+      } else {
         int currentAmount = this.items.get(index).getAmount();
         item.setAmount(++currentAmount);
         this.items.set(index, item);
+      }
+      return true;
     }
   }
 
@@ -65,6 +63,15 @@ public class Basket {
       }
     }
     return total;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for(Item i : this.items) sb.append(i + "; ");
+    return "Basket[ " +
+            sb.toString() +
+            "] : ";
   }
 
 }
