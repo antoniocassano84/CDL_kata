@@ -19,7 +19,6 @@ class ItemTest {
     itemB = Item.valueOf("B");
     itemC = Item.valueOf("C");
     itemD = Item.valueOf("D");
-    System.out.println("Setup: Four Items created!");
   }
 
   @Test
