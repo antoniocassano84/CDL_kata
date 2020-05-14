@@ -1,3 +1,5 @@
-Item,Quantity,Price
-A,3,1.30
-B,2,0.45
+name,unitPrice,minAmount,specialPrice
+A,0.50,3,1.30
+B,0.30,2,0.45
+C,0.20,,
+D,0.15,,

@@ -2,7 +2,6 @@ package cdlKata;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ItemTest {
@@ -12,87 +11,131 @@ class ItemTest {
   private Item itemC;
   private Item itemD;
 
+
   @BeforeEach
   void setUp() {
-    itemA = Item.valueOf("A");
-    itemB = Item.valueOf("B");
-    itemC = Item.valueOf("C");
-    itemD = Item.valueOf("D");
+    itemA = new Item("A,0.50,3,1.30");
+    itemB = new Item("B,0.30,2,0.45");
+    itemC = new Item("C,0.20,,");
+    itemD = new Item("D,0.15,,");
   }
 
   @Test
   @Order(1)
-  void getPrice() {
-    assertEquals(0.50, itemA.getPrice());
-    assertEquals(0.30, itemB.getPrice());
-    assertEquals(0.20, itemC.getPrice());
-    assertEquals(0.15, itemD.getPrice());
+  void getNameA() {
+    assertEquals("A", itemA.getName());
   }
 
   @Test
   @Order(2)
-  void getAmount() {
-    assertEquals(0, itemA.getAmount());
-    assertEquals(0, itemB.getAmount());
-    assertEquals(0, itemC.getAmount());
-    assertEquals(0, itemD.getAmount());
+  void getNameB() {
+    assertEquals("B", itemB.getName());
   }
 
   @Test
   @Order(3)
-  void getSubTotalItem() {
-    assertEquals(0, itemA.getSubTotalItem());
-    assertEquals(0, itemB.getSubTotalItem());
-    assertEquals(0, itemC.getSubTotalItem());
-    assertEquals(0, itemD.getSubTotalItem());
+  void getNameC() {
+    assertEquals("C", itemC.getName());
   }
 
   @Test
   @Order(4)
-  void incrementAmountByOne() {
-    itemA.incrementAmountBYOne();
-    itemB.incrementAmountBYOne();
-    itemC.incrementAmountBYOne();
-    itemD.incrementAmountBYOne();
-    assertEquals(1, itemA.getAmount());
-    assertEquals(1, itemB.getAmount());
-    assertEquals(1, itemC.getAmount());
-    assertEquals(1, itemD.getAmount());
+  void getNameD() {
+    assertEquals("D", itemD.getName());
   }
 
   @Test
   @Order(5)
-  void setAmount() {
-    itemA.setAmount(100);
-    itemB.setAmount(0);
-    itemC.setAmount(1000);
-    itemD.setAmount(200);
-    assertEquals(100, itemA.getAmount());
-    assertEquals(0, itemB.getAmount());
-    assertEquals(1000, itemC.getAmount());
-    assertEquals(200, itemD.getAmount());
+  void getUnitPriceA() {
+    assertEquals(0.50, itemA.getUnitPrice());
   }
 
   @Test
   @Order(6)
-  void setAmountNegative() {
-    assertThrows(IllegalArgumentException.class, () -> itemA.setAmount(-200));
+  void getUnitPriceB() {
+    assertEquals(0.30, itemB.getUnitPrice());
   }
 
   @Test
   @Order(7)
-  void testToString() {
-    assertEquals("A{p:0.5, q:100}", itemA.toString());
-    assertEquals("B{p:0.3, q:0}", itemB.toString());
-    assertEquals("C{p:0.2, q:1000}", itemC.toString());
-    assertEquals("D{p:0.15, q:200}", itemD.toString());
+  void getUnitPriceC() {
+    assertEquals(0.20, itemC.getUnitPrice());
   }
 
   @Test
   @Order(8)
-  void testToStringAfterIncrement() {
-    itemA.incrementAmountBYOne();
-    assertEquals("A{p:0.5, q:101}", itemA.toString());
+  void getUnitPriceD() {
+    assertEquals(0.15, itemD.getUnitPrice());
+  }
+
+  @Test
+  @Order(9)
+  void getMinAmountA() {
+    assertEquals(3, itemA.getMinAmount());
+  }
+
+  @Test
+  @Order(10)
+  void getMinAmountB() {
+    assertEquals(2, itemB.getMinAmount());
+  }
+
+  @Test
+  @Order(11)
+  void getMinAmountC() {
+    assertEquals(0, itemC.getMinAmount());
+  }
+
+  @Test
+  @Order(12)
+  void getMinAmountD() {
+    assertEquals(0, itemD.getMinAmount());
+  }
+
+  @Test
+  @Order(13)
+  void getSpecialPriceA() {
+    assertEquals(1.30, itemA.getSpecialPrice());
+  }
+
+  @Test
+  @Order(14)
+  void getSpecialPriceB() {
+    assertEquals(0.45, itemB.getSpecialPrice());
+  }
+
+  @Test
+  @Order(15)
+  void getSpecialPriceC() {
+    assertEquals(0.00, itemC.getSpecialPrice());
+  }
+
+  @Test
+  @Order(16)
+  void getSpecialPriceD() {
+    assertEquals(0.00, itemD.getSpecialPrice());
+  }
+
+  @Test
+  @Order(17)
+  void toStringA() {
+    assertEquals("A[unitP=0.50,minA=3,specialP=1.30]", itemA.toString());
+  }
+
+  @Test
+  @Order(18)
+  void toStringB() {
+    assertEquals("B[unitP=0.30,minA=2,specialP=0.45]", itemB.toString());
+  }
+  @Test
+  @Order(19)
+  void toStringC() {
+    assertEquals("C[unitP=0.20]", itemC.toString());
+  }
+  @Test
+  @Order(20)
+  void toStringD() {
+    assertEquals("D[unitP=0.15]", itemD.toString());
   }
 
 }

@@ -1,45 +1,42 @@
 package cdlKata;
 
-public enum Item {
+public class Item {
 
-  A(0.50), B(0.30), C(0.20), D(0.15);
+  private String name;
+  private double unitPrice;
+  private int minAmount;
+  private double specialPrice;
 
-  private final double price;
-  private int amount;
-
-  Item(double price) {
-    this.price = price;
-    this.amount = 0;
+  Item(String line) {
+    String[] parts = line.split(",");
+    this.name = parts[0];
+    this.unitPrice = Double.parseDouble(parts[1]);
+    this.minAmount = parts.length == 4 ? Integer.parseInt(parts[2]) : 0;
+    this.specialPrice = parts.length == 4 ? Double.parseDouble(parts[3]) : 0.00;
   }
 
-  public double getPrice() {
-    return this.price;
+  public String getName() {
+    return name;
   }
 
-  public int getAmount() {
-    return this.amount;
+  public double getUnitPrice() {
+    return unitPrice;
   }
 
-  public void setAmount(int amount) {
-    if(amount < 0)
-      throw new IllegalArgumentException("Amount must be non negative!");
-    else
-      this.amount = amount;
+  public int getMinAmount() {
+    return minAmount;
   }
 
-  public void incrementAmountBYOne() {
-    this.amount += 1;
-  }
-
-  public double getSubTotalItem() {
-    return this.price * this.amount;
+  public double getSpecialPrice() {
+    return specialPrice;
   }
 
   @Override
   public String toString() {
-    return this.name() + "{" +
-            "p:" + price +
-            ", q:" + amount +
-            '}';
+    return this.name + "[" +
+            "unitP=" + String.format("%.2f", this.unitPrice) +
+            (this.minAmount == 0 ? "" : (",minA=" + this.minAmount)) +
+            (this.specialPrice == 0.0 ? "" : (",specialP=" + String.format("%.2f", this.specialPrice)))  +
+            ']';
   }
 }
