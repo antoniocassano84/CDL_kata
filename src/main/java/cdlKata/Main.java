@@ -31,14 +31,10 @@ public class Main {
     }
   }
 
-  public static void main(String[] args) {
-
+  private static double calcRunningTotal() {
     Basket basket = new Basket();
     char ch;
     double total = 0.0;
-
-    System.out.println("Your basket is empty");
-
     do {
       ch = readCharFromKeyboard();
       if(ch != 'q' && ch != 'Q') {
@@ -46,8 +42,14 @@ public class Main {
         System.out.print(basket);
         total = basket.checkOut(parseRules("src\\main\\resources\\deals.txt"));
         System.out.println("Running Total = " + String.format("%.2f", total));
-        }
-      } while (ch != 'q' && ch != 'Q');
-    System.out.println("Final Bill = " + String.format("%.2f", total));
+      }
+    } while (ch != 'q' && ch != 'Q');
+    return total;
+  }
+
+  public static void main(String[] args) {
+    System.out.println("Your basket is empty");
+    double total = calcRunningTotal();
+    System.out.print("Final Bill = " + String.format("%.2f", total));
   }
 }
