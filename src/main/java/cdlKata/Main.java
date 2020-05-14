@@ -41,7 +41,7 @@ public class Main {
         if (!basket.addToBasket(ch)) throw new IllegalArgumentException("Enter a char between A and D!");
         System.out.print(basket);
         total = basket.checkOut(parseRules("src\\main\\resources\\deals.txt"));
-        System.out.println("Running Total = " + String.format("%.2f", total));
+        System.out.println(String.format("Running Total = %.2f %s", total, (char) 163));
       }
     } while (ch != 'q' && ch != 'Q');
     return total;
@@ -50,6 +50,6 @@ public class Main {
   public static void main(String[] args) {
     System.out.println("Your basket is empty");
     double total = calcRunningTotal();
-    System.out.print("Final Bill = " + String.format("%.2f", total));
+    System.out.print(String.format("Final Bill = %.2f %s", total, (char) 163));
   }
 }
