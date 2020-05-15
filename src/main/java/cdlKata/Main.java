@@ -12,6 +12,7 @@ public class Main {
   private static Item itemA;
   private static Item itemB;
   private static Item itemC;
+  private static Checkout checkout;
 
 
   public static void main(String[] args) {
@@ -25,5 +26,8 @@ public class Main {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemC);
     System.out.println("full: " + basket.calculateFullPrice());
+
+    checkout = new Checkout(basket);
+
   }
 }

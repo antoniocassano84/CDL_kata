@@ -30,6 +30,16 @@ class CheckoutTest {
 
   @Test
   @Order(2)
+  void toPayWhenNoItemWithSpecialPriceInBasket() {
+    basket.addItemToBasket(itemC);
+    basket.addItemToBasket(itemC);
+    basket.addItemToBasket(itemC);
+    checkout = new Checkout(basket);
+    assertEquals(0.60, checkout.toPay(), 0.01);
+  }
+
+  @Test
+  @Order(3)
   void toPayWhenNoDealInBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
@@ -39,7 +49,7 @@ class CheckoutTest {
   }
 
   @Test
-  @Order(2)
+  @Order(4)
   void toPayWhenDealInBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
@@ -51,7 +61,7 @@ class CheckoutTest {
   }
 
   @Test
-  @Order(3)
+  @Order(5)
   void toPayWhenEightItemsInBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
