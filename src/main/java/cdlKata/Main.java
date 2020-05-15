@@ -8,9 +8,22 @@ import java.util.Scanner;
 
 public class Main {
 
+  private static Basket basket;
+  private static Item itemA;
+  private static Item itemB;
+  private static Item itemC;
+
 
   public static void main(String[] args) {
-    String s = "C,0.90,3,0.1";
-    System.out.println(s.split(",").length);
+    basket = new Basket();
+    itemA = new Item("A,0.50,3,1.30");
+    itemB = new Item("B,0.30,2,0.45");
+    itemC = new Item("C,0.20,,");
+
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemC);
+    System.out.println("full: " + basket.calculateFullPrice());
   }
 }

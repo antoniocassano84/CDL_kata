@@ -49,6 +49,8 @@ public class Basket {
     for (Map.Entry<Item, Integer> e : this.items.entrySet())
       sb.append(e.getKey().getName() + "\t\t" + e.getValue() + "\n");
     sb.append("----------------\n");
+    sb.append("TOTAL\t");
+    sb.append(String.format("%.2f %c", calculateFullPrice(), (char) 163));
     return sb.toString();
   }
 

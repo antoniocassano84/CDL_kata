@@ -113,7 +113,7 @@ class BasketTest {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemC);
-    assertEquals(1.80, basket.calculateFullPrice(), 0.2);
+    assertEquals(1.70, basket.calculateFullPrice(), 0.01);
   }
 
   @Test
@@ -129,6 +129,8 @@ class BasketTest {
     sb.append("C\t\t1\n");
     sb.append("A\t\t1\n");
     sb.append("----------------\n");
+    sb.append("TOTAL\t0.70 ");
+    sb.append((char) 163);
     assertEquals(sb.toString(), basket.toString());
   }
 
@@ -141,6 +143,8 @@ class BasketTest {
     sb.append("----------------\n");
     sb.append("ITEM\tQUANTITY\n");
     sb.append("----------------\n");
+    sb.append("TOTAL\t0.00 ");
+    sb.append((char) 163);
     assertEquals(sb.toString(), basket.toString());
   }
 
