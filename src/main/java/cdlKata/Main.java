@@ -38,7 +38,7 @@ public class Main {
       else {
         Item item = new Item(record);
         basket.addItemToBasket(item);
-        System.out.println(basket);
+        //System.out.println(basket);
       }
     } while(!line.trim().equals(""));
     Checkout checkout = new Checkout(basket);

@@ -22,12 +22,16 @@ public class Basket {
   }
 
   public void addItemToBasket(Item item) {
-    if(isItemInBasket(item)) {
+    items.put(item, items.getOrDefault(item,0) + 1);
+   // this.items.put(item, this.items.getOrDefault(item, 0) + 1);
+    //if(isItemInBasket(item)) {
+    //  this.items.remove(item);
       // remove old item first, then add
-      int newAmount = this.items.get(item) + 1;
-      this.items.put(item, newAmount);
-    } else
-      this.items.put(item, 1);
+      //int newAmount = this.items.get(item) + 1;
+      //this.items.put(item, newAmount);
+    //  this.items.put(item, this.items.get(item) + 1);
+    //} else
+    //  this.items.put(item, 1);
   }
 
   public Integer removeItemFromBasket(Item item) {
