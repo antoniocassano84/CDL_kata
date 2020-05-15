@@ -14,8 +14,15 @@ public class Basket {
     return items;
   }
 
+  public boolean isItemInBasket(Item itemA) {
+    for (Map.Entry<Item, Integer> e : this.items.entrySet())
+      if(e.getKey().equals(itemA))
+        return true;
+    return false;
+  }
+
   public void addItemToBasket(Item item) {
-    if(this.items.containsKey(item)) {
+    if(isItemInBasket(item)) {
       int newAmount = this.items.get(item) + 1;
       this.items.put(item, newAmount);
     } else
