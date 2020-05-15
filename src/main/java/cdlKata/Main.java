@@ -47,7 +47,7 @@ public class Main {
     Basket b = new Basket();
     b.addItemToBasket(new Item("A,0.50,3,1.30"));
     Item itemA = new Item("A,0.50,3,1.30");
-    System.out.println("???" + b.getItems().containsKey(itemA));
+    System.out.println("???" + b.isItemInBasket(itemA));
     b.addItemToBasket(new Item("A,0.50,3,1.30"));
     System.out.println("new");
     System.out.println(b);

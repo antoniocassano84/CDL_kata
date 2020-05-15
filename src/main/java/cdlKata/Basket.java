@@ -14,15 +14,16 @@ public class Basket {
     return items;
   }
 
-  public boolean isItemInBasket(Item itemA) {
-    for (Map.Entry<Item, Integer> e : this.items.entrySet())
-      if(e.getKey().equals(itemA))
+  public boolean isItemInBasket(Item item) {
+    for(Item e : this.items.keySet())
+      if(e.equals(item))
         return true;
     return false;
   }
 
   public void addItemToBasket(Item item) {
     if(isItemInBasket(item)) {
+      // remove old item first, then add
       int newAmount = this.items.get(item) + 1;
       this.items.put(item, newAmount);
     } else
@@ -42,7 +43,7 @@ public class Basket {
   public double calculateFullPrice() {
     double basketFullPrice = 0.0;
     for (Map.Entry<Item, Integer> e : this.items.entrySet())
-      basketFullPrice += e.getKey().getUnitPrice() * e.getValue();
+      basketFullPrice += (e.getKey().getUnitPrice() * e.getValue());
     return basketFullPrice;
   }
 
