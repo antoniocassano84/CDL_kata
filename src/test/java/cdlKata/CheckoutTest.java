@@ -90,11 +90,22 @@ class CheckoutTest {
     assertEquals(2.75, checkout.toPay(), 0.01);
   }
 
-  //@Test
-  //@Order(8)
-  //void printCheckoutTopayWithEmptyBasket() {
-  //  StringBuilder sb = new StringBuilder();
-  //  sb
-  //}
+  @Test
+  @Order(8)
+  void printCheckoutTopayWithEmptyBasket() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("----------------\n");
+    sb.append("BASKET CONTENT\n");
+    sb.append("----------------\n");
+    sb.append("ITEM\tQUANTITY\n");
+    sb.append("----------------\n");
+    sb.append("TOTAL\t0.00 ");
+    sb.append((char) 163);
+    sb.append("\n----------------\n");
+    sb.append("TO PAY\t0.00 ");
+    sb.append((char) 163);
+    assertEquals(sb.toString(), checkout.toString());
+
+  }
 
 }

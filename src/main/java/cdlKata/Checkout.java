@@ -34,4 +34,13 @@ public class Checkout {
     return topay;
   }
 
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(this.basket.toString());
+    sb.append("\n----------------\n");
+    sb.append("TO PAY\t");
+    sb.append(String.format("%.2f %c", this.toPay(), (char) 163));
+    return sb.toString();
+  }
 }
