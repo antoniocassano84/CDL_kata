@@ -10,6 +10,10 @@ public class Checkout {
     this.basket = basket;
   }
 
+  public Basket getBasket() {
+    return this.basket;
+  }
+
 
   public double toPay() {
     double topay = 0.0;
@@ -29,4 +33,5 @@ public class Checkout {
     }  // end for
     return topay;
   }
+
 }

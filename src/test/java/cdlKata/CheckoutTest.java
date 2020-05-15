@@ -24,12 +24,27 @@ class CheckoutTest {
 
   @Test
   @Order(1)
+  void getBasketEmpty() {
+    assertEquals(0, checkout.getBasket().getItems().size());
+  }
+
+  @Test
+  @Order(2)
+  void getBasketTwoItems() {
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemC);
+    checkout = new Checkout(basket);
+    assertEquals(2, checkout.getBasket().getItems().size());
+  }
+
+  @Test
+  @Order(3)
   void toPayWhenEmptyBasket() {
     assertEquals(0.00, checkout.toPay(), 0.01);
   }
 
   @Test
-  @Order(2)
+  @Order(4)
   void toPayWhenNoItemWithSpecialPriceInBasket() {
     basket.addItemToBasket(itemC);
     basket.addItemToBasket(itemC);
@@ -39,7 +54,7 @@ class CheckoutTest {
   }
 
   @Test
-  @Order(3)
+  @Order(5)
   void toPayWhenNoDealInBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
@@ -49,7 +64,7 @@ class CheckoutTest {
   }
 
   @Test
-  @Order(4)
+  @Order(6)
   void toPayWhenDealInBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
@@ -61,7 +76,7 @@ class CheckoutTest {
   }
 
   @Test
-  @Order(5)
+  @Order(7)
   void toPayWhenEightItemsInBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
@@ -74,5 +89,12 @@ class CheckoutTest {
     checkout = new Checkout(basket);
     assertEquals(2.75, checkout.toPay(), 0.01);
   }
+
+  //@Test
+  //@Order(8)
+  //void printCheckoutTopayWithEmptyBasket() {
+  //  StringBuilder sb = new StringBuilder();
+  //  sb
+  //}
 
 }
