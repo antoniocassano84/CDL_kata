@@ -1,5 +1,21 @@
 package cdlKata;
 
+/**
+ * The Item class models a single item to buy. This will hold all the information related to
+ * a single item which match columns' names in the itemsDB.csv, namely:
+ *
+ * "name"         : This is the name of the item as String and must be unique since this is the SKU
+ *                  (Stock Keeping Units, or SKUs) -> e.g. "A";
+ * "unitPrice"    : This is the price of a single unit of item as double -> e.g. 0.50;
+ * "minAmount"    : This is the minimum amount of items you have to buy to get a deal as an int.
+ *                  This field is set to zero if there are no deals for a specific item -> e.g. 3
+ * "specialPrice" : This is the discounted price if you buy @minAmount of items for which deals were created.
+ *                  This is a double -> for item "A" this is set to 1.30 for 3 items.
+ *
+ * @author  Antonio Cassano
+ * @version 1.0
+ * @since   16-05-2020
+ */
 public class Item {
 
   private String name;
@@ -7,6 +23,9 @@ public class Item {
   private int minAmount;
   private double specialPrice;
 
+  /** Creates an item with the specified name.
+   * @param line The String object containing comma-separated fields e.g. "A,0.50,3,1.30".
+   */
   Item(String line) {
     String[] parts = line.split(",");
     this.name = parts[0];
@@ -15,22 +34,44 @@ public class Item {
     this.specialPrice = parts.length == 4 ? Double.parseDouble(parts[3]) : 0.00;
   }
 
+  /**
+   * This is the getter for the 'name' field which is a String.
+   * @return The unique SKU id as name of the item
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * This is the getter for the 'unitPrice' field which is a double.
+   * @return The price (in GBP) of a single item
+   */
   public double getUnitPrice() {
     return unitPrice;
   }
 
+
+  /**
+   * This is the getter for the 'minAmount' field which is an int.
+   * @return The minimum amount of item to buy if you want to be eligible for a discount
+   */
   public int getMinAmount() {
     return minAmount;
   }
 
+  /**
+   * This is the getter for the 'specialPrice' field which is a double.
+   * @return The discounted price if you buy minAMount of a certain item
+   */
   public double getSpecialPrice() {
     return specialPrice;
   }
 
+  /**
+   * This overrides the toString() method from Object class.
+   * @return A string representation of an item in the form:
+   *         itemName[unitP=<unitPrice>,minA=<minAmount>,specialP=<specialPrice>]
+   */
   @Override
   public String toString() {
     return this.name + "[" +
@@ -40,9 +81,16 @@ public class Item {
             ']';
   }
 
+
+  /**
+   * This overrides the equals() method from Object class.
+   * @param o This is an Object object which will be cast to Item for checking
+   * @return true if we are comparing an item reference with itself or
+   *              if all the fields of item are the same.
+   */
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
+    if (this == o) return true;  // itemA.equals(itemA) returns true
     if (o == null || getClass() != o.getClass()) return false;
 
     Item item = (Item) o;
@@ -53,6 +101,11 @@ public class Item {
     return getName().equals(item.getName());
   }
 
+
+  /**
+   * This overrides the hashCode() method from Object class.
+   * @return It returns the hash code for an item.
+   */
   @Override
   public int hashCode() {
     int result;

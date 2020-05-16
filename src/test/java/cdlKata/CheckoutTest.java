@@ -11,7 +11,7 @@ class CheckoutTest {
   private Basket basket;
   private Item itemA;
   private Item itemB;
-  private Item itemC;;
+  private Item itemC;
 
   @BeforeEach
   void setUp() {
@@ -93,18 +93,17 @@ class CheckoutTest {
   @Test
   @Order(8)
   void printCheckoutTopayWithEmptyBasket() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("----------------\n");
-    sb.append("BASKET CONTENT\n");
-    sb.append("----------------\n");
-    sb.append("ITEM\tQUANTITY\n");
-    sb.append("----------------\n");
-    sb.append("TOTAL\t0.00 ");
-    sb.append((char) 163);
-    sb.append("\n----------------\n");
-    sb.append("TO PAY\t0.00 ");
-    sb.append((char) 163);
-    assertEquals(sb.toString(), checkout.toString());
+    String sb = "----------------\n" +
+            "BASKET CONTENT\n" +
+            "----------------\n" +
+            "ITEM\tQUANTITY\n" +
+            "----------------\n" +
+            "TOTAL\t0.00 " +
+            (char) 163 +
+            "\n----------------\n" +
+            "TO PAY\t0.00 " +
+            (char) 163;
+    assertEquals(sb, checkout.toString());
 
   }
 

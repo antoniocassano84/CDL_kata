@@ -37,7 +37,7 @@ public class Main {
         if(itemToRemove == null) {
           System.out.println("No item named '" + iName+ "' in the system");
         } else {
-          if(basket.removeItemFromBasket(new Item(itemToRemove)) == null)
+          if(basket.removeItemFromBasket(new Item(itemToRemove)) == -1)
             System.out.println("Not possible to remove " + iName);
           System.out.println(basket);
         } // end remove

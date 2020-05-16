@@ -117,26 +117,31 @@ class ItemTest {
   }
 
   @Test
-  void equalsItems() {
-    Item itemAA = new Item("A,0.50,3,1.30");
-    assertTrue(itemAA.equals(itemA));
+  void toStringD() {
+    assertEquals("D[unitP=0.15]", itemD.toString());
   }
 
   @Test
-  void equalsItems2() {
+  void equalsItemsSameRef() {
+    assertEquals(itemA, itemA);
+  }
+
+  @Test
+  void equalsItemsSameObject() {
+    Item itemAA = new Item("A,0.50,3,1.30");
+    assertEquals(itemAA, itemA);
+  }
+
+  @Test
+  void equalsItemsTowReferencesToSameObject() {
     Item itemAA = new Item("A,0.50,3,1.30");
     Item itemAA2 = new Item("A,0.50,3,1.30");
-    assertTrue(itemAA.equals(itemAA2));
+    assertEquals(itemAA, itemAA2);
   }
 
   @Test
   void notEqualsItems() {
-    assertFalse(itemB.equals(itemA));
-  }
-
-  @Test
-  void toStringD() {
-    assertEquals("D[unitP=0.15]", itemD.toString());
+    assertNotEquals(itemB, itemA);
   }
 
 }

@@ -88,7 +88,7 @@ class BasketTest {
   void removeItemFromBasketNotFound() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemC);
-    assertNull(basket.removeItemFromBasket(itemB));
+    assertEquals(-1, basket.removeItemFromBasket(itemB));
     assertEquals(1, basket.getItems().get(itemA));
     assertEquals(1, basket.getItems().get(itemC));
     assertEquals(2, basket.getItems().size());
@@ -158,34 +158,32 @@ class BasketTest {
   void printBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemC);
-    StringBuilder sb = new StringBuilder();
-    sb.append("----------------\n");
-    sb.append("BASKET CONTENT\n");
-    sb.append("----------------\n");
-    sb.append("ITEM\tQUANTITY\n");
-    sb.append("A\t\t1\n");
-    sb.append("C\t\t1\n");
-    sb.append("----------------\n");
-    sb.append("TOTAL\t0.70 ");
-    sb.append((char) 163);
-    assertEquals(sb.toString(), basket.toString());
+    String sb = "----------------\n" +
+            "BASKET CONTENT\n" +
+            "----------------\n" +
+            "ITEM\tQUANTITY\n" +
+            "A\t\t1\n" +
+            "C\t\t1\n" +
+            "----------------\n" +
+            "TOTAL\t0.70 " +
+            (char) 163;
+    assertEquals(sb, basket.toString());
   }
 
   @Test
   void printBasketOrder() {
     basket.addItemToBasket(itemC);
     basket.addItemToBasket(itemA);
-    StringBuilder sb = new StringBuilder();
-    sb.append("----------------\n");
-    sb.append("BASKET CONTENT\n");
-    sb.append("----------------\n");
-    sb.append("ITEM\tQUANTITY\n");
-    sb.append("C\t\t1\n");
-    sb.append("A\t\t1\n");
-    sb.append("----------------\n");
-    sb.append("TOTAL\t0.70 ");
-    sb.append((char) 163);
-    assertEquals(sb.toString(), basket.toString());
+    String sb = "----------------\n" +
+            "BASKET CONTENT\n" +
+            "----------------\n" +
+            "ITEM\tQUANTITY\n" +
+            "C\t\t1\n" +
+            "A\t\t1\n" +
+            "----------------\n" +
+            "TOTAL\t0.70 " +
+            (char) 163;
+    assertEquals(sb, basket.toString());
   }
 
   @Test
@@ -194,17 +192,16 @@ class BasketTest {
     basket.addItemToBasket(itemC);
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemC);
-    StringBuilder sb = new StringBuilder();
-    sb.append("----------------\n");
-    sb.append("BASKET CONTENT\n");
-    sb.append("----------------\n");
-    sb.append("ITEM\tQUANTITY\n");
-    sb.append("A\t\t2\n");
-    sb.append("C\t\t2\n");
-    sb.append("----------------\n");
-    sb.append("TOTAL\t1.40 ");
-    sb.append((char) 163);
-    assertEquals(sb.toString(), basket.toString());
+    String sb = "----------------\n" +
+            "BASKET CONTENT\n" +
+            "----------------\n" +
+            "ITEM\tQUANTITY\n" +
+            "A\t\t2\n" +
+            "C\t\t2\n" +
+            "----------------\n" +
+            "TOTAL\t1.40 " +
+            (char) 163;
+    assertEquals(sb, basket.toString());
   }
 
   @Test
@@ -213,30 +210,28 @@ class BasketTest {
     basket.addItemToBasket(new Item("C,0.20,,"));
     basket.addItemToBasket(new Item("A,0.50,3,1.30"));
     basket.addItemToBasket(new Item("C,0.20,,"));
-    StringBuilder sb = new StringBuilder();
-    sb.append("----------------\n");
-    sb.append("BASKET CONTENT\n");
-    sb.append("----------------\n");
-    sb.append("ITEM\tQUANTITY\n");
-    sb.append("A\t\t2\n");
-    sb.append("C\t\t2\n");
-    sb.append("----------------\n");
-    sb.append("TOTAL\t1.40 ");
-    sb.append((char) 163);
-    assertEquals(sb.toString(), basket.toString());
+    String sb = "----------------\n" +
+            "BASKET CONTENT\n" +
+            "----------------\n" +
+            "ITEM\tQUANTITY\n" +
+            "A\t\t2\n" +
+            "C\t\t2\n" +
+            "----------------\n" +
+            "TOTAL\t1.40 " +
+            (char) 163;
+    assertEquals(sb, basket.toString());
   }
 
   @Test
   void printEmptyBasket() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("----------------\n");
-    sb.append("BASKET CONTENT\n");
-    sb.append("----------------\n");
-    sb.append("ITEM\tQUANTITY\n");
-    sb.append("----------------\n");
-    sb.append("TOTAL\t0.00 ");
-    sb.append((char) 163);
-    assertEquals(sb.toString(), basket.toString());
+    String sb = "----------------\n" +
+            "BASKET CONTENT\n" +
+            "----------------\n" +
+            "ITEM\tQUANTITY\n" +
+            "----------------\n" +
+            "TOTAL\t0.00 " +
+            (char) 163;
+    assertEquals(sb, basket.toString());
   }
 
 }
