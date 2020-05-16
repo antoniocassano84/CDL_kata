@@ -39,7 +39,7 @@ public class Main {
         } else {
           if(basket.removeItemFromBasket(new Item(itemToRemove)) == -1)
             System.out.println("Not possible to remove " + iName);
-          System.out.println(basket);
+          System.out.println(new Checkout(basket));
         } // end remove
       } else {  // Add Item to Basket
         String itemToAdd = getRecordFromFileSource(line);
@@ -47,7 +47,7 @@ public class Main {
           System.out.println("No item named '" + line + "' in the system");
         else {
           basket.addItemToBasket(new Item(itemToAdd));
-          System.out.println(basket);
+          System.out.println(new Checkout(basket));
         }
       }  // end Add
     } while(!line.trim().equals(""));
