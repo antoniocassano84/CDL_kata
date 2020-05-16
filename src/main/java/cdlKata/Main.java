@@ -25,23 +25,37 @@ public class Main {
   public static void main(String[] args) {
     Basket basket = new Basket();
     String line;
-    do{
+
+    do {
       Scanner sc = new Scanner(System.in);
       System.out.print("Please enter an Item name (or whitespace to exit): ");
       line = sc.nextLine();
       if(line.trim().equals("")) break;
       // here goes the code for the remove method -A
-      String record = getRecordFromFileSource(line);
-      if(record == null)
-        System.out.println("No item named '" + line + "' in the system");
-      else {
-        Item item = new Item(record);
-        basket.addItemToBasket(item);
-        System.out.println(basket);
-      }
+      if(line.startsWith("-")) {
+        //remove
+        String itemToRemove = getRecordFromFileSource(line.substring(1));
+        if(itemToRemove == null) {
+          System.out.println("No item named '" + line.substring(1) + "' in the system");
+        } else {
+          Item item = new Item(itemToRemove);
+          if(basket.removeItemFromBasket(item) == null)
+            System.out.println("Not possible to remove " + item.getName());
+          System.out.println(basket);
+        } // end remove
+      } else {  // Add Item to Basket
+        String itemToAdd = getRecordFromFileSource(line);
+        if(itemToAdd == null)
+          System.out.println("No item named '" + line + "' in the system");
+        else {
+          Item item = new Item(itemToAdd);
+          basket.addItemToBasket(item);
+          System.out.println(basket);
+        }
+      }  // end else Add
     } while(!line.trim().equals(""));
+
     Checkout checkout = new Checkout(basket);
     System.out.println(checkout);
-
   }
 }
