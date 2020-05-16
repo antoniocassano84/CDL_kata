@@ -1,12 +1,8 @@
 package cdlKata;
 
 import org.junit.jupiter.api.*;
-
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class BasketTest {
 
   private Basket basket;
@@ -23,63 +19,72 @@ class BasketTest {
   }
 
   @Test
-  @Order(1)
   void basketEmptyWhenCreated() {
     assertTrue(basket.getItems().isEmpty());
   }
 
   @Test
-  @Order(2)
-  void isItemInBasketFalse() {
-    assertFalse(basket.isItemInBasket(itemA));
-  }
-
-  @Test
-  @Order(3)
-  void isItemInBasketTrue() {
-    basket.addItemToBasket(itemA);
-    assertTrue(basket.isItemInBasket(itemA));
-  }
-
-
-  @Test
-  @Order(4)
-  void addItemToBasketFirstTime() {
+  void isItemInBasket() {
     basket.addItemToBasket(itemA);
     assertTrue(basket.getItems().containsKey(itemA));
+  }
+
+  @Test
+  void addItemToBasketCheckSize() {
+    basket.addItemToBasket(itemA);
     assertEquals(1, basket.getItems().size());
   }
 
   @Test
-  @Order(5)
-  void addItemToBasketSecondTime() {
+  void addItemToBasketValue() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
     assertEquals(2, basket.getItems().get(itemA));
+  }
+
+  @Test
+  void addItemToBasketSizeTwo() {
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemA);
     assertEquals(1, basket.getItems().size());
   }
 
   @Test
-  @Order(6)
-  void addItemToBasketTwoDifferentObjects() {
+  void addItemToBasketGetNewObjValue() {
     basket.addItemToBasket(new Item("A,0.50,3,1.30"));
     basket.addItemToBasket(new Item("A,0.50,3,1.30"));
     assertEquals(2, basket.getItems().get(new Item("A,0.50,3,1.30")));
+  }
+
+  @Test
+  void addItemToBasketTwoDifferentObjectsSize() {
+    basket.addItemToBasket(new Item("A,0.50,3,1.30"));
+    basket.addItemToBasket(new Item("A,0.50,3,1.30"));
     assertEquals(1, basket.getItems().size());
   }
 
   @Test
-  @Order(7)
-  void addTwoDifferentItemsToBasket() {
+  void addTwoDifferentItemsToBasketA() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemC);
     assertEquals(1, basket.getItems().get(itemA));
+  }
+
+  @Test
+  void addTwoDifferentItemsToBasketC() {
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemC);
     assertEquals(1, basket.getItems().get(itemC));
+  }
+
+  @Test
+  void addTwoDifferentItemsToBasketSizeAC() {
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemC);
     assertEquals(2, basket.getItems().size());
   }
 
   @Test
-  @Order(8)
   void removeItemFromBasketNotFound() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemC);
@@ -90,7 +95,6 @@ class BasketTest {
   }
 
   @Test
-  @Order(9)
   void removeItemFromBasketFirstTime() {
     for (int i = 0; i < 3; i++)
       basket.addItemToBasket(itemA);
@@ -99,37 +103,49 @@ class BasketTest {
   }
 
   @Test
-  @Order(10)
-  void removeItemFromBasketSecondTime() {
+  void removeItemFromBasketSecondTimeContainsA() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
     basket.removeItemFromBasket(itemA);
     basket.removeItemFromBasket(itemA);
-    assertFalse(basket.getItems().containsKey(itemA));
-    assertNull(basket.getItems().get(itemA));
     assertFalse(basket.getItems().containsKey(itemA));
   }
 
   @Test
-  @Order(11)
-  void removeItemFromBasketthirdTime() {
+  void removeItemFromBasketNullA() {
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemA);
+    basket.removeItemFromBasket(itemA);
+    basket.removeItemFromBasket(itemA);
+    assertNull(basket.getItems().get(itemA));
+  }
+
+  @Test
+  void removeItemFromBasketthirdTimeGet() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
     basket.removeItemFromBasket(itemA);
     basket.removeItemFromBasket(itemA);
     basket.removeItemFromBasket(itemA);
     assertNull(basket.getItems().get(itemA));
+  }
+
+  @Test
+  void removeItemFromBasketthirdTimeContains() {
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemA);
+    basket.removeItemFromBasket(itemA);
+    basket.removeItemFromBasket(itemA);
+    basket.removeItemFromBasket(itemA);
     assertFalse(basket.getItems().containsKey(itemA));
   }
 
   @Test
-  @Order(12)
   void calculateFullPriceEmptyBasket() {
     assertEquals(0.00, basket.calculateFullPrice());
   }
 
   @Test
-  @Order(13)
   void calculateFullPriceAandCInBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
@@ -139,10 +155,26 @@ class BasketTest {
   }
 
   @Test
-  @Order(14)
   void printBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemC);
+    StringBuilder sb = new StringBuilder();
+    sb.append("----------------\n");
+    sb.append("BASKET CONTENT\n");
+    sb.append("----------------\n");
+    sb.append("ITEM\tQUANTITY\n");
+    sb.append("A\t\t1\n");
+    sb.append("C\t\t1\n");
+    sb.append("----------------\n");
+    sb.append("TOTAL\t0.70 ");
+    sb.append((char) 163);
+    assertEquals(sb.toString(), basket.toString());
+  }
+
+  @Test
+  void printBasketOrder() {
+    basket.addItemToBasket(itemC);
+    basket.addItemToBasket(itemA);
     StringBuilder sb = new StringBuilder();
     sb.append("----------------\n");
     sb.append("BASKET CONTENT\n");
@@ -157,7 +189,6 @@ class BasketTest {
   }
 
   @Test
-  @Order(15)
   void printBasketAandCTwice() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemC);
@@ -168,8 +199,8 @@ class BasketTest {
     sb.append("BASKET CONTENT\n");
     sb.append("----------------\n");
     sb.append("ITEM\tQUANTITY\n");
-    sb.append("C\t\t2\n");
     sb.append("A\t\t2\n");
+    sb.append("C\t\t2\n");
     sb.append("----------------\n");
     sb.append("TOTAL\t1.40 ");
     sb.append((char) 163);
@@ -177,7 +208,6 @@ class BasketTest {
   }
 
   @Test
-  @Order(16)
   void printBasketAandCTwiceNewObj() {
     basket.addItemToBasket(new Item("A,0.50,3,1.30"));
     basket.addItemToBasket(new Item("C,0.20,,"));
@@ -188,8 +218,8 @@ class BasketTest {
     sb.append("BASKET CONTENT\n");
     sb.append("----------------\n");
     sb.append("ITEM\tQUANTITY\n");
-    sb.append("C\t\t2\n");
     sb.append("A\t\t2\n");
+    sb.append("C\t\t2\n");
     sb.append("----------------\n");
     sb.append("TOTAL\t1.40 ");
     sb.append((char) 163);
@@ -197,7 +227,6 @@ class BasketTest {
   }
 
   @Test
-  @Order(17)
   void printEmptyBasket() {
     StringBuilder sb = new StringBuilder();
     sb.append("----------------\n");
@@ -209,6 +238,5 @@ class BasketTest {
     sb.append((char) 163);
     assertEquals(sb.toString(), basket.toString());
   }
-
 
 }

@@ -7,38 +7,23 @@ public class Basket {
   private Map<Item, Integer> items;
 
   public Basket() {
-    items = new HashMap<>();
+    //items = new HashMap<>();
+    items = new LinkedHashMap<>();
   }
 
   public Map<Item, Integer> getItems() {
     return items;
   }
 
-  public boolean isItemInBasket(Item item) {
-    for(Item e : this.items.keySet())
-      if(e.equals(item))
-        return true;
-    return false;
-  }
-
   public void addItemToBasket(Item item) {
     items.put(item, items.getOrDefault(item,0) + 1);
-   // this.items.put(item, this.items.getOrDefault(item, 0) + 1);
-    //if(isItemInBasket(item)) {
-    //  this.items.remove(item);
-      // remove old item first, then add
-      //int newAmount = this.items.get(item) + 1;
-      //this.items.put(item, newAmount);
-    //  this.items.put(item, this.items.get(item) + 1);
-    //} else
-    //  this.items.put(item, 1);
   }
 
   public Integer removeItemFromBasket(Item item) {
     if(this.items.containsKey(item)) {
       int newAmount = this.items.get(item) - 1;
       this.items.put(item, newAmount);
-      if(newAmount == 0) this.items.remove(item);
+      if(newAmount <= 0) this.items.remove(item);
       return newAmount;
     } else
       return null;

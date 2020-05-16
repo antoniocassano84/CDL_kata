@@ -1,7 +1,8 @@
 package cdlKata;
 
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class ItemTest {
@@ -109,10 +110,30 @@ class ItemTest {
   void toStringB() {
     assertEquals("B[unitP=0.30,minA=2,specialP=0.45]", itemB.toString());
   }
+
   @Test
   void toStringC() {
     assertEquals("C[unitP=0.20]", itemC.toString());
   }
+
+  @Test
+  void equalsItems() {
+    Item itemAA = new Item("A,0.50,3,1.30");
+    assertTrue(itemAA.equals(itemA));
+  }
+
+  @Test
+  void equalsItems2() {
+    Item itemAA = new Item("A,0.50,3,1.30");
+    Item itemAA2 = new Item("A,0.50,3,1.30");
+    assertTrue(itemAA.equals(itemAA2));
+  }
+
+  @Test
+  void notEqualsItems() {
+    assertFalse(itemB.equals(itemA));
+  }
+
   @Test
   void toStringD() {
     assertEquals("D[unitP=0.15]", itemD.toString());

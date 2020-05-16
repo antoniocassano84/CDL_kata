@@ -31,6 +31,7 @@ public class Main {
       Scanner sc = new Scanner(System.in);
       System.out.print("Please enter an Item name (or whitespace to exit): ");
       line = sc.nextLine();
+      if(line.trim().equals("")) break;
       // here goes the code for the remove method -A
       String record = getRecordFromFileSource(line);
       if(record == null)
@@ -38,21 +39,11 @@ public class Main {
       else {
         Item item = new Item(record);
         basket.addItemToBasket(item);
-        //System.out.println(basket);
+        System.out.println(basket);
       }
     } while(!line.trim().equals(""));
     Checkout checkout = new Checkout(basket);
     System.out.println(checkout);
-
-    Basket b = new Basket();
-    b.addItemToBasket(new Item("A,0.50,3,1.30"));
-    Item itemA = new Item("A,0.50,3,1.30");
-    System.out.println("???" + b.isItemInBasket(itemA));
-    b.addItemToBasket(new Item("A,0.50,3,1.30"));
-    System.out.println("new");
-    System.out.println(b);
-    Checkout check = new Checkout(b);
-    System.out.println(check);
 
   }
 }

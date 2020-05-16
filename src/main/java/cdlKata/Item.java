@@ -44,4 +44,30 @@ public class Item {
             (this.specialPrice == 0.0 ? "" : (",specialP=" + String.format("%.2f", this.specialPrice)))  +
             ']';
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Item item = (Item) o;
+
+    if (Double.compare(item.getUnitPrice(), getUnitPrice()) != 0) return false;
+    if (getMinAmount() != item.getMinAmount()) return false;
+    if (Double.compare(item.getSpecialPrice(), getSpecialPrice()) != 0) return false;
+    return getName().equals(item.getName());
+  }
+
+  @Override
+  public int hashCode() {
+    int result;
+    long temp;
+    result = getName().hashCode();
+    temp = Double.doubleToLongBits(getUnitPrice());
+    result = 31 * result + (int) (temp ^ (temp >>> 32));
+    result = 31 * result + getMinAmount();
+    temp = Double.doubleToLongBits(getSpecialPrice());
+    result = 31 * result + (int) (temp ^ (temp >>> 32));
+    return result;
+  }
 }
