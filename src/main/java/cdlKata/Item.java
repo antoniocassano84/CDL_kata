@@ -1,10 +1,5 @@
 package cdlKata;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
-
 public class Item {
 
   private String name;

@@ -43,8 +43,9 @@ public class Basket {
     sb.append("BASKET CONTENT\n");
     sb.append("----------------\n");
     sb.append("ITEM\tQUANTITY\n");
-    for (Map.Entry<Item, Integer> e : this.items.entrySet())
-      sb.append(e.getKey().getName() + "\t\t" + e.getValue() + "\n");
+    for (Map.Entry<Item, Integer> e : this.items.entrySet()) {
+      sb.append(e.getKey().getName()).append("\t\t").append(e.getValue()).append("\n");
+    }
     sb.append("----------------\n");
     sb.append("TOTAL\t");
     sb.append(String.format("%.2f %c", calculateFullPrice(), (char) 163));

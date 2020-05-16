@@ -7,8 +7,6 @@ import java.util.Scanner;
 public class Main {
 
   private static final String DATA_SOURCE = "src\\main\\resources\\itemsDB.csv";
-  private static Basket basket;
-
 
   private static String getRecordFromFileSource(String str) {
     try (Scanner input = new Scanner(new File(DATA_SOURCE))) {
@@ -25,7 +23,7 @@ public class Main {
   }
 
   public static void main(String[] args) {
-    basket = new Basket();
+    Basket basket = new Basket();
     String line;
     do{
       Scanner sc = new Scanner(System.in);
@@ -35,7 +33,7 @@ public class Main {
       // here goes the code for the remove method -A
       String record = getRecordFromFileSource(line);
       if(record == null)
-        System.out.println("No item named \'" + line + "\' in the system");
+        System.out.println("No item named '" + line + "' in the system");
       else {
         Item item = new Item(record);
         basket.addItemToBasket(item);
