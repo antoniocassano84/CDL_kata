@@ -7,7 +7,6 @@ public class Basket {
   private Map<Item, Integer> items;
 
   public Basket() {
-    //items = new HashMap<>();
     items = new LinkedHashMap<>();
   }
 
