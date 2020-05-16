@@ -31,16 +31,14 @@ public class Main {
       System.out.print("Please enter an Item name (or whitespace to exit): ");
       line = sc.nextLine();
       if(line.trim().equals("")) break;
-      // here goes the code for the remove method -A
-      if(line.startsWith("-")) {
-        //remove
-        String itemToRemove = getRecordFromFileSource(line.substring(1));
+      if(line.startsWith("-")) {  // want to remove an Item
+        String iName = line.substring(1);
+        String itemToRemove = getRecordFromFileSource(iName);
         if(itemToRemove == null) {
-          System.out.println("No item named '" + line.substring(1) + "' in the system");
+          System.out.println("No item named '" + iName+ "' in the system");
         } else {
-          Item item = new Item(itemToRemove);
-          if(basket.removeItemFromBasket(item) == null)
-            System.out.println("Not possible to remove " + item.getName());
+          if(basket.removeItemFromBasket(new Item(itemToRemove)) == null)
+            System.out.println("Not possible to remove " + iName);
           System.out.println(basket);
         } // end remove
       } else {  // Add Item to Basket
@@ -48,14 +46,12 @@ public class Main {
         if(itemToAdd == null)
           System.out.println("No item named '" + line + "' in the system");
         else {
-          Item item = new Item(itemToAdd);
-          basket.addItemToBasket(item);
+          basket.addItemToBasket(new Item(itemToAdd));
           System.out.println(basket);
         }
-      }  // end else Add
+      }  // end Add
     } while(!line.trim().equals(""));
 
-    Checkout checkout = new Checkout(basket);
-    System.out.println(checkout);
+    System.out.println(new Checkout(basket));
   }
 }
