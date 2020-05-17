@@ -22,34 +22,56 @@ public class Main {
     }
   }
 
+  public static String scanItemFromCmdLine() {
+    String line;
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Please enter an Item name (or whitespace to exit): ");
+    line = scanner.nextLine();
+    return line.trim().equals("") ? null : line;
+  }
+
+  public static Checkout makeCheckoutAfterAdd(String line, Basket basket) {
+    String itemToAdd = getRecordFromFileSource(line);
+    if(itemToAdd == null) {
+      System.out.println("No item named '" + line + "' in the system");
+      return null;
+    }
+    else {
+      basket.addItemToBasket(new Item(itemToAdd));
+      return new Checkout(basket);
+    }
+
+  }
+
+  public static Checkout makeCheckoutAfterRemove(String line, Basket basket) {
+      String iName = line.substring(1);
+      String itemToRemove = getRecordFromFileSource(iName);
+      if(itemToRemove == null) {
+        System.out.println("No item named '" + iName+ "' in the system");
+        return null;
+      } else {
+        if(basket.removeItemFromBasket(new Item(itemToRemove)) == -1)
+          System.out.println("Not possible to remove " + iName);
+        return new Checkout(basket);
+      }
+  }
+
   public static void main(String[] args) {
     Basket basket = new Basket();
     String line;
 
     do {
-      Scanner sc = new Scanner(System.in);
-      System.out.print("Please enter an Item name (or whitespace to exit): ");
-      line = sc.nextLine();
-      if(line.trim().equals("")) break;
-      if(line.startsWith("-")) {  // want to remove an Item
-        String iName = line.substring(1);
-        String itemToRemove = getRecordFromFileSource(iName);
-        if(itemToRemove == null) {
-          System.out.println("No item named '" + iName+ "' in the system");
-        } else {
-          if(basket.removeItemFromBasket(new Item(itemToRemove)) == -1)
-            System.out.println("Not possible to remove " + iName);
-          System.out.println(new Checkout(basket));
-        } // end remove
+      // Scan an item from command line:
+      line = scanItemFromCmdLine();
+      if(line == null) break;
+      // if line starts with '-' then the user wants to remove an item from the basket
+      if(line.startsWith("-")) {
+        Checkout checkout = makeCheckoutAfterRemove(line, basket);
+        if(checkout != null) System.out.println(checkout);
       } else {  // Add Item to Basket
-        String itemToAdd = getRecordFromFileSource(line);
-        if(itemToAdd == null)
-          System.out.println("No item named '" + line + "' in the system");
-        else {
-          basket.addItemToBasket(new Item(itemToAdd));
-          System.out.println(new Checkout(basket));
+        Checkout checkout = makeCheckoutAfterAdd(line, basket);
+        if(checkout != null) System.out.println(checkout);
         }
-      }  // end Add
     } while(!line.trim().equals(""));
 
     System.out.println(new Checkout(basket));
