@@ -4,7 +4,6 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CheckoutTest {
 
   private Checkout checkout;
@@ -23,13 +22,11 @@ class CheckoutTest {
   }
 
   @Test
-  @Order(1)
   void getBasketEmpty() {
     assertEquals(0, checkout.getBasket().getItems().size());
   }
 
   @Test
-  @Order(2)
   void getBasketTwoItems() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemC);
@@ -38,13 +35,11 @@ class CheckoutTest {
   }
 
   @Test
-  @Order(3)
   void toPayWhenEmptyBasket() {
     assertEquals(0.00, checkout.toPay(), 0.01);
   }
 
   @Test
-  @Order(4)
   void toPayWhenNoItemWithSpecialPriceInBasket() {
     basket.addItemToBasket(itemC);
     basket.addItemToBasket(itemC);
@@ -54,7 +49,6 @@ class CheckoutTest {
   }
 
   @Test
-  @Order(5)
   void toPayWhenNoDealInBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
@@ -64,7 +58,6 @@ class CheckoutTest {
   }
 
   @Test
-  @Order(6)
   void toPayWhenDealInBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
@@ -76,7 +69,6 @@ class CheckoutTest {
   }
 
   @Test
-  @Order(7)
   void toPayWhenEightItemsInBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemA);
@@ -91,7 +83,6 @@ class CheckoutTest {
   }
 
   @Test
-  @Order(8)
   void printCheckoutTopayWithEmptyBasket() {
     String sb = "----------------\n" +
             "BASKET CONTENT\n" +
@@ -104,7 +95,6 @@ class CheckoutTest {
             "TO PAY\t0.00 " +
             (char) 163;
     assertEquals(sb, checkout.toString());
-
   }
 
 }
