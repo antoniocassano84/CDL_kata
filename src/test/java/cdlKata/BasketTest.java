@@ -89,9 +89,6 @@ class BasketTest {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemC);
     assertEquals(-1, basket.removeItemFromBasket(itemB));
-    assertEquals(1, basket.getItems().get(itemA));
-    assertEquals(1, basket.getItems().get(itemC));
-    assertEquals(2, basket.getItems().size());
   }
 
   @Test
