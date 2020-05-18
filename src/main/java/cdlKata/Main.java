@@ -30,50 +30,38 @@ public class Main {
     return line.trim().equals("") ? null : line;
   }
 
-  public static Checkout makeCheckoutAfterAdd(String line, Basket basket) {
-    String itemToAdd = getRecordFromFileSource(line);
-    if(itemToAdd == null) {
+  public static Checkout produceCheckout(String line, Basket basket) {
+    boolean remove = line.startsWith("-");
+    if(remove) line = line.substring(1);
+    String itemLine = getRecordFromFileSource(line);
+    if(itemLine == null) {
       System.out.println("No item named '" + line + "' in the system");
-      return null;
     }
     else {
-      basket.addItemToBasket(new Item(itemToAdd));
-      return new Checkout(basket);
-    }
-
-  }
-
-  public static Checkout makeCheckoutAfterRemove(String line, Basket basket) {
-      String iName = line.substring(1);
-      String itemToRemove = getRecordFromFileSource(iName);
-      if(itemToRemove == null) {
-        System.out.println("No item named '" + iName+ "' in the system");
-        return null;
-      } else {
-        if(basket.removeItemFromBasket(new Item(itemToRemove)) == -1)
-          System.out.println("Not possible to remove " + iName);
-        return new Checkout(basket);
+      Item it = new Item(itemLine);
+      if(remove) { // remove item from the basket
+        if(basket.removeItemFromBasket(it) == -1)
+          System.out.println("Not possible to remove " + line);
+      } else { // add item to basket
+        basket.addItemToBasket(it);
       }
+    }
+    return new Checkout(basket);
   }
 
   public static void main(String[] args) {
     Basket basket = new Basket();
     String line;
+    Checkout checkout = new Checkout(basket);
 
     do {
       // Scan an item from command line:
       line = scanItemFromCmdLine();
       if(line == null) break;
-      // if line starts with '-' then the user wants to remove an item from the basket
-      if(line.startsWith("-")) {
-        Checkout checkout = makeCheckoutAfterRemove(line, basket);
-        if(checkout != null) System.out.println(checkout);
-      } else {  // Add Item to Basket
-        Checkout checkout = makeCheckoutAfterAdd(line, basket);
-        if(checkout != null) System.out.println(checkout);
-        }
+      checkout = produceCheckout(line, basket);
+      System.out.println(checkout);
     } while(!line.trim().equals(""));
 
-    System.out.println(new Checkout(basket));
+    System.out.println(checkout);
   }
 }
