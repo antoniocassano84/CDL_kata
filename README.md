@@ -1,4 +1,4 @@
-# Basket Kata
+# Checkout system kata
 Implement the code for a checkout system that handles pricing schemes such as “apples cost 50 pence, three apples cost £1.30.”<br/>
 Implement the code for a supermarket checkout that calculates the total price of a number of items. <br/>
 In a normal supermarket, things are identified using Stock Keeping Units, or SKUs. In our store, we’ll use individual letters of the alphabet (A, B, C, and so on).<br/>
