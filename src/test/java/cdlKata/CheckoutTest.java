@@ -16,9 +16,9 @@ class CheckoutTest {
   void setUp() {
     basket = new Basket();
     checkout = new Checkout(basket);
-    itemA = new Item("A,0.50,3,1.30");
-    itemB = new Item("B,0.30,2,0.45");
-    itemC = new Item("C,0.20,,");
+    itemA = new Item("A", 0.50, 3, 1.30);
+    itemB = new Item("B", 0.30, 2, 0.45);
+    itemC = new Item("C", 0.20);
   }
 
   @Test

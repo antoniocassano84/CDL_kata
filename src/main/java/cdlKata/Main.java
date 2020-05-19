@@ -8,13 +8,15 @@ public class Main {
 
   private static final String DATA_SOURCE = "src\\main\\resources\\itemsDB.csv";
 
-  private static String getRecordFromFileSource(String str) {
+
+  private static Item getRecordFromFileSource(String str) {
     try (Scanner input = new Scanner(new File(DATA_SOURCE))) {
       input.nextLine(); // skip header
       while(input.hasNext()) {
         String line = input.nextLine();
-        if(line.split(",")[0].equalsIgnoreCase(str))
-          return line;
+        if(line.split(",")[0].equalsIgnoreCase(str)) {
+            return Item.parseItem(line);
+        }
       }
       return null;
     } catch (IOException e) {
@@ -33,17 +35,16 @@ public class Main {
   public static Checkout produceCheckout(String line, Basket basket) {
     boolean remove = line.startsWith("-");
     if(remove) line = line.substring(1);
-    String itemLine = getRecordFromFileSource(line);
-    if(itemLine == null) {
+    Item item = getRecordFromFileSource(line);
+    if(item == null) {
       System.out.println("No item named '" + line + "' in the system");
     }
     else {
-      Item it = new Item(itemLine);
       if(remove) { // remove item from the basket
-        if(basket.removeItemFromBasket(it) == -1)
+        if(basket.removeItemFromBasket(item) == -1)
           System.out.println("Not possible to remove " + line);
       } else { // add item to basket
-        basket.addItemToBasket(it);
+        basket.addItemToBasket(item);
       }
     }
     return new Checkout(basket);

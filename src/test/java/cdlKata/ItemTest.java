@@ -15,10 +15,30 @@ class ItemTest {
 
   @BeforeEach
   void setUp() {
-    itemA = new Item("A,0.50,3,1.30");
-    itemB = new Item("B,0.30,2,0.45");
-    itemC = new Item("C,0.20,,");
-    itemD = new Item("D,0.15,,");
+    itemA = new Item("A", 0.50, 3, 1.30);
+    itemB = new Item("B", 0.30, 2, 0.45);
+    itemC = new Item("C", 0.20);
+    itemD = new Item("D", 0.15);
+  }
+
+  @Test
+  void parseItemA() {
+    assertEquals(itemA, Item.parseItem("A,0.50,3,1.30"));
+  }
+
+  @Test
+  void parseItemB() {
+    assertEquals(itemB, Item.parseItem("B,0.30,2,0.45"));
+  }
+
+  @Test
+  void parseItemC() {
+    assertEquals(itemC, Item.parseItem("C,0.20"));
+  }
+
+  @Test
+  void parseItemD() {
+    assertEquals(itemD, Item.parseItem("D,0.15"));
   }
 
   @Test
@@ -128,14 +148,14 @@ class ItemTest {
 
   @Test
   void equalsItemsSameObject() {
-    Item itemAA = new Item("A,0.50,3,1.30");
+    Item itemAA = new Item("A", 0.50, 3, 1.30);
     assertEquals(itemAA, itemA);
   }
 
   @Test
   void equalsItemsTowReferencesToSameObject() {
-    Item itemAA = new Item("A,0.50,3,1.30");
-    Item itemAA2 = new Item("A,0.50,3,1.30");
+    Item itemAA = new Item("A", 0.50, 3, 1.30);
+    Item itemAA2 = new Item("A", 0.50, 3, 1.30);
     assertEquals(itemAA, itemAA2);
   }
 

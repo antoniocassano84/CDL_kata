@@ -26,12 +26,31 @@ public class Item {
   /** Creates an item with the specified name.
    * @param line The String object containing comma-separated fields e.g. "A,0.50,3,1.30".
    */
-  Item(String line) {
+//  Item(String line) {
+//    String[] parts = line.split(",");
+//    this.name = parts[0];
+//    this.unitPrice = Double.parseDouble(parts[1]);
+//    this.minAmount = parts.length == 4 ? Integer.parseInt(parts[2]) : 0;
+//    this.specialPrice = parts.length == 4 ? Double.parseDouble(parts[3]) : 0.00;
+//  }
+
+  public Item(String name, double unitPrice, int minAmount, double specialPrice) {
+    this.name = name;
+    this.unitPrice = unitPrice;
+    this.minAmount = minAmount;
+    this.specialPrice = specialPrice;
+  }
+
+  public Item(String name, double unitPrice) {
+    this(name, unitPrice, 0, 0.0);
+  }
+
+
+  public static Item parseItem(String line) {
     String[] parts = line.split(",");
-    this.name = parts[0];
-    this.unitPrice = Double.parseDouble(parts[1]);
-    this.minAmount = parts.length == 4 ? Integer.parseInt(parts[2]) : 0;
-    this.specialPrice = parts.length == 4 ? Double.parseDouble(parts[3]) : 0.00;
+    if (parts.length == 2) return new Item(parts[0], Double.parseDouble(parts[1]));
+    else return new Item(parts[0], Double.parseDouble(parts[1]),
+            Integer.parseInt(parts[2]), Double.parseDouble(parts[3]));
   }
 
   /**

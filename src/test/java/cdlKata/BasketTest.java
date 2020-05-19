@@ -13,9 +13,9 @@ class BasketTest {
   @BeforeEach
   void setUp() {
     basket = new Basket();
-    itemA = new Item("A,0.50,3,1.30");
-    itemB = new Item("B,0.30,2,0.45");
-    itemC = new Item("C,0.20,,");
+    itemA = new Item("A", 0.50, 3, 1.30);
+    itemB = new Item("B", 0.30, 2, 0.45);
+    itemC = new Item("C", 0.20);
   }
 
   @Test
@@ -51,15 +51,15 @@ class BasketTest {
 
   @Test
   void addItemToBasketGetNewObjValue() {
-    basket.addItemToBasket(new Item("A,0.50,3,1.30"));
-    basket.addItemToBasket(new Item("A,0.50,3,1.30"));
-    assertEquals(2, basket.getItems().get(new Item("A,0.50,3,1.30")));
+    basket.addItemToBasket(new Item("A", 0.50, 3, 1.30));
+    basket.addItemToBasket(new Item("A", 0.50, 3, 1.30));
+    assertEquals(2, basket.getItems().get(new Item("A", 0.50, 3, 1.30)));
   }
 
   @Test
   void addItemToBasketTwoDifferentObjectsSize() {
-    basket.addItemToBasket(new Item("A,0.50,3,1.30"));
-    basket.addItemToBasket(new Item("A,0.50,3,1.30"));
+    basket.addItemToBasket(new Item("A", 0.50, 3, 1.30));
+    basket.addItemToBasket(new Item("A", 0.50, 3, 1.30));
     assertEquals(1, basket.getItems().size());
   }
 
@@ -203,10 +203,10 @@ class BasketTest {
 
   @Test
   void printBasketAandCTwiceNewObj() {
-    basket.addItemToBasket(new Item("A,0.50,3,1.30"));
-    basket.addItemToBasket(new Item("C,0.20,,"));
-    basket.addItemToBasket(new Item("A,0.50,3,1.30"));
-    basket.addItemToBasket(new Item("C,0.20,,"));
+    basket.addItemToBasket(new Item("A", 0.50, 3, 1.30));
+    basket.addItemToBasket(new Item("C", 0.20));
+    basket.addItemToBasket(new Item("A", 0.50, 3, 1.30));
+    basket.addItemToBasket(new Item("C", 0.20));
     String sb = "----------------\n" +
             "BASKET CONTENT\n" +
             "----------------\n" +
