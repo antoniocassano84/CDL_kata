@@ -42,6 +42,26 @@ class ItemTest {
   }
 
   @Test
+  void parseItemNull() {
+    assertNull(Item.parseItem("G,0.90,0.45"));
+  }
+
+  @Test
+  void parseItemOnlyName() {
+    assertNull(Item.parseItem("Z"));
+  }
+
+  @Test
+  void parseItemFiveParts() {
+    assertNull(Item.parseItem("Y,1.01,4,0.80,444"));
+  }
+
+  @Test
+  void parseItemEmptyString() {
+    assertNull(Item.parseItem(""));
+  }
+
+  @Test
   void getNameA() {
     assertEquals("A", itemA.getName());
   }
