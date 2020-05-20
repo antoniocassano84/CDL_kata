@@ -2,15 +2,37 @@ package cdlKata;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.*;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
 
-  private static final String DATA_SOURCE = "src\\main\\resources\\itemsDB.csv";
 
+  private static final String FILE_DATA_SOURCE = "src\\main\\resources\\itemsDB.csv";
+  private static final String DB_DATA_SOURCE = "src\\main\\resources\\CdlItems.db";
+  private static final String CONNECTION_STRING = "jdbc:sqlite:src\\main\\resources\\CdlItems.db";
+
+
+  public static void connect() {
+    String url = "jdbc:sqlite:" + DB_DATA_SOURCE;
+    String allItems = "SELECT * FROM Items WHERE Items.name=";
+
+    try (Connection conn = DriverManager.getConnection(url);
+         Statement statement = conn.createStatement();
+         ResultSet results = statement.executeQuery(allItems)) {
+      while(results.next())
+        System.out.println(results.getString("name") + ", " +
+                           results.getDouble("unitPrice") + ", " +
+                           results.getInt("minAmount") + ", " +
+                           results.getDouble("specialPrice"));
+      } catch (SQLException e) {
+        System.out.println(e.getMessage());
+      }
+    }
 
   private static Item getRecordFromFileSource(String str) {
-    try (Scanner input = new Scanner(new File(DATA_SOURCE))) {
+    try (Scanner input = new Scanner(new File(FILE_DATA_SOURCE))) {
       input.nextLine(); // skip header
       while(input.hasNext()) {
         String line = input.nextLine();
@@ -51,6 +73,7 @@ public class Main {
   }
 
   public static void main(String[] args) {
+
     Basket basket = new Basket();
     String line;
     Checkout checkout = new Checkout(basket);
