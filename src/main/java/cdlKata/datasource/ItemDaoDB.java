@@ -18,7 +18,7 @@ public class ItemDaoDB implements Dao<Item> {
   @Override
   public Optional<Item> get(String s) {
     Item item;
-    String query = QUERY_ITEM_BY_NAME + s + "'";
+    String query = QUERY_ITEM_BY_NAME + s.toUpperCase() + "'";
     try (Connection conn = DriverManager.getConnection(CONNECTION_STRING);
          Statement statement = conn.createStatement();
          ResultSet results = statement.executeQuery(query)) {
