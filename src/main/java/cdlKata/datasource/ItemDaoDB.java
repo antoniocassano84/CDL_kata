@@ -10,8 +10,9 @@ import java.util.Optional;
 public class ItemDaoDB implements Dao<Item> {
 
   private static final String CONNECTION_STRING = "jdbc:sqlite:src\\main\\resources\\CdlItems.db";
-  public static final String QUERY_ITEM_BY_NAME = "SELECT * FROM Items WHERE Items.name='";
   public static final String QUERY_GET_ALL_ITEMS = "SELECT * FROM Items";
+  public static final String QUERY_ITEM_BY_NAME = QUERY_GET_ALL_ITEMS + " WHERE Items.name='";
+
 
 
   @Override
@@ -51,28 +52,31 @@ public class ItemDaoDB implements Dao<Item> {
 
   @Override
   public void save(Item item) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("INSERT INTO Items(name, unitPrice");
-    if(item.getMinAmount()!=0)
-      sb.append(", minAmount, specialPrice");
-    sb.append(")VALUES('");
-    sb.append(item.getName());
-    sb.append("','");
-    sb.append(item.getUnitPrice());
-    sb.append("'");
-    if(item.getMinAmount()!=0 && item.getSpecialPrice()!=0.00) {
-      sb.append(",'");
-      sb.append(item.getMinAmount());
+    Optional<Item> optItem = this.get(item.getName());
+    if(optItem.isEmpty()) {
+      StringBuilder sb = new StringBuilder();
+      sb.append("INSERT INTO Items(name, unitPrice");
+      if(item.getMinAmount()!=0)
+        sb.append(", minAmount, specialPrice");
+      sb.append(")VALUES('");
+      sb.append(item.getName());
       sb.append("','");
-      sb.append(item.getSpecialPrice());
+      sb.append(item.getUnitPrice());
       sb.append("'");
-    }
-    sb.append(")");
-    try (Connection conn = DriverManager.getConnection(CONNECTION_STRING);
-         Statement statement = conn.createStatement()) {
-      statement.executeUpdate(sb.toString());
-    } catch (SQLException e) {
-      System.out.println(e.getMessage());
+      if(item.getMinAmount()!=0 && item.getSpecialPrice()!=0.00) {
+        sb.append(",'");
+        sb.append(item.getMinAmount());
+        sb.append("','");
+        sb.append(item.getSpecialPrice());
+        sb.append("'");
+      }
+      sb.append(")");
+      try (Connection conn = DriverManager.getConnection(CONNECTION_STRING);
+           Statement statement = conn.createStatement()) {
+        statement.executeUpdate(sb.toString());
+      } catch (SQLException e) {
+        System.out.println(e.getMessage());
+      }
     }
   }
 
