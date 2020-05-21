@@ -58,9 +58,9 @@ public class ItemDaoFile implements Dao<Item> {
 
   @Override
   public void update(Item item, String[] params) {
-    try {
-      // input the (modified) file content to the StringBuffer "input"
-      BufferedReader file = new BufferedReader(new FileReader(FILE_DATA_SOURCE));
+    try (BufferedReader file = new BufferedReader(new FileReader(FILE_DATA_SOURCE));
+         FileOutputStream fileOut = new FileOutputStream(FILE_DATA_SOURCE)) {
+
       StringBuffer inputBuffer = new StringBuffer();
       String line;
 
@@ -69,15 +69,10 @@ public class ItemDaoFile implements Dao<Item> {
         inputBuffer.append(line);
         inputBuffer.append('\n');
       }
-      file.close();
-
-      // write the new string with the replaced line OVER the same file
-      FileOutputStream fileOut = new FileOutputStream(FILE_DATA_SOURCE);
       fileOut.write(inputBuffer.toString().getBytes());
-      fileOut.close();
 
     } catch (Exception e) {
-      System.out.println("Problem reading file.");
+      e.getMessage();
     }
   }
 
