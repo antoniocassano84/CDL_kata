@@ -3,6 +3,9 @@ package cdlKata.datasource;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @param <T>
+ */
 public interface Dao<T> {
 
   Optional<T> get(String s);

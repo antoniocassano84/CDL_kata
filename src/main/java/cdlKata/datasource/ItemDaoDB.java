@@ -53,7 +53,7 @@ public class ItemDaoDB implements Dao<Item> {
   @Override
   public void save(Item item) {
     Optional<Item> optItem = this.get(item.getName());
-    if(optItem.isEmpty()) {
+    if(!optItem.isPresent()) {
       StringBuilder sb = new StringBuilder();
       sb.append("INSERT INTO Items(name, unitPrice");
       if(item.getMinAmount()!=0)

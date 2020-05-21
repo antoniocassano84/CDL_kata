@@ -2,13 +2,18 @@ package cdlKata.datasource;
 
 import cdlKata.Item;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class ItemDaoDBTest {
+class ItemDaoTest {
 
   private ItemDaoDB itemDaoDB;
   private Item itemA;
@@ -25,10 +30,20 @@ class ItemDaoDBTest {
     itemF = new Item("F", 1.00, 0, 0.00);
   }
 
-  @Test
+  static Stream<Arguments> sourceMethodForGetAIsPresent() {
+    final ItemDaoDB itemDaoDB = new ItemDaoDB();
+    final ItemDaoDB itemDaoFile = new ItemDaoDB();
+    return Stream.of(
+            Arguments.of(itemDaoDB),
+            Arguments.of(itemDaoFile)
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource("sourceMethodForGetAIsPresent")
   @Order(1)
-  void getItemAIsPresent() {
-    Optional<Item> opItem = itemDaoDB.get("A");
+  void getItemAIsPresent(Dao<Item> dao) {
+    Optional<Item> opItem = dao.get("A");
     assertTrue(opItem.isPresent());
   }
 
