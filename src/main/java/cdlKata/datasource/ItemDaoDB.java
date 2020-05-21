@@ -1,4 +1,6 @@
-package cdlKata;
+package cdlKata.datasource;
+
+import cdlKata.Item;
 
 import java.sql.*;
 import java.util.LinkedList;

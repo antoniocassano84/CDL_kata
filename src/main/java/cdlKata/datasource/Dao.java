@@ -1,4 +1,4 @@
-package cdlKata;
+package cdlKata.datasource;
 
 import java.util.List;
 import java.util.Optional;

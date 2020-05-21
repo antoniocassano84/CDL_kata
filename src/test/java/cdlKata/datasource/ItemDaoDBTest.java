@@ -1,5 +1,6 @@
-package cdlKata;
+package cdlKata.datasource;
 
+import cdlKata.Item;
 import org.junit.jupiter.api.*;
 
 import java.util.Optional;
