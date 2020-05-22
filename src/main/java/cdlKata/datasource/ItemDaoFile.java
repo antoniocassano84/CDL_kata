@@ -43,9 +43,13 @@ public class ItemDaoFile implements Dao<Item> {
 
   @Override
   public void save(Item item) {
-    for(Item i : this.getAll())
-      if(i.equals(item))
-        return;
+
+    // if item is in the system then return
+    if(this.get(item.getName()).isPresent()) {
+      System.out.println("Item '" + item.getName() + "' already in the system");
+      return;
+    }
+
     String itemS = "\n" + item.getName() + "," + item.getUnitPrice() + "," +
                    (item.getMinAmount()==0? "" : item.getMinAmount()) + "," +
                    (item.getSpecialPrice()==0? "" : item.getSpecialPrice());
@@ -58,22 +62,43 @@ public class ItemDaoFile implements Dao<Item> {
 
   @Override
   public void update(Item item, String[] params) {
-    try (BufferedReader file = new BufferedReader(new FileReader(FILE_DATA_SOURCE));
-         FileOutputStream fileOut = new FileOutputStream(FILE_DATA_SOURCE)) {
 
-      StringBuffer inputBuffer = new StringBuffer();
-      String line;
-
-      while ((line = file.readLine()) != null) {
-        //line = ... // replace the line here
-        inputBuffer.append(line);
-        inputBuffer.append('\n');
-      }
-      fileOut.write(inputBuffer.toString().getBytes());
-
-    } catch (Exception e) {
-      e.getMessage();
+    if(params.length!=1 && params.length!=3) {
+      System.out.println("Wrong number of parameters");
+      return;
     }
+
+    if(!this.get(item.getName()).isPresent()) {
+      System.out.println("Item '" + item.getName() + "' NOT in the system");
+      return;
+    }
+
+    String fileContents = null;
+
+    try(Scanner sc = new Scanner(new File(FILE_DATA_SOURCE))) {
+      StringBuilder buffer = new StringBuilder();
+      while (sc.hasNextLine())
+        buffer.append(sc.nextLine()).append(System.lineSeparator());
+      fileContents = buffer.toString();
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
+
+    if(fileContents != null)
+      fileContents = fileContents.replaceAll(item.getName() + "," + item.getUnitPrice() + "," +
+                                                    item.getMinAmount() + "," + item.getSpecialPrice(),
+                                        item.getName() + "," + params[0] + "," +
+                                                    params[1] + "," + params[2]);
+    else
+      return;
+
+    try (FileWriter writer = new FileWriter(FILE_DATA_SOURCE)) {
+      writer.append(fileContents);
+      writer.flush();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
   }
 
   @Override

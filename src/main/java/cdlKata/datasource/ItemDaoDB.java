@@ -82,8 +82,14 @@ public class ItemDaoDB implements Dao<Item> {
 
   @Override
   public void update(Item item, String[] params) {
+
+    if(params.length!=1 && params.length!=3) {
+      System.out.println("Wrong number of parameters");
+      return;
+    }
+
     String query = "REPLACE INTO Items(name, unitPrice, minAmount, specialPrice)\n" +
-                   "VALUES('" + params[0] + "', " + params[1] + ", " + params[2] + ", "+ params[3] +")";
+                   "VALUES('" + item.getName() + "', " + params[0] + ", " + params[1] + ", "+ params[2] +")";
     try (Connection conn = DriverManager.getConnection(CONNECTION_STRING);
          Statement statement = conn.createStatement()) {
       statement.execute(query);

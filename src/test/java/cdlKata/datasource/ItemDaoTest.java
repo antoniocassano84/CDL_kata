@@ -29,7 +29,7 @@ class ItemDaoTest {
     itemA = new Item("A", 0.50, 3, 1.30);
     itemC = new Item("C", 0.20, 0, 0.00);
     itemE = new Item("E", 0.90, 4, 3.00);
-    itemF = new Item("F", 1.00, 0, 0.00);
+    itemF = new Item("F", 0.99, 5, 4.00);
   }
 
   static Stream<Arguments> sourceMethod() {
@@ -97,7 +97,7 @@ class ItemDaoTest {
   @MethodSource("sourceMethod")
   @Order(7)
   void update(Dao<Item> dao) {
-    dao.update(itemF, new String[] {"F", "3.00", "4", "10.00"});
+    dao.update(itemF, new String[] {"3.00", "4", "10.00"});
     Optional<Item> updatedItemF = dao.get("F");
     assertEquals(3.00, updatedItemF.get().getUnitPrice());
   }
