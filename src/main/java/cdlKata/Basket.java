@@ -90,18 +90,17 @@ public class Basket {
    */
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("----------------\n");
-    sb.append("BASKET CONTENT\n");
-    sb.append("----------------\n");
-    sb.append("ITEM\tQUANTITY\n");
+    StringBuilder bStr = new StringBuilder("" +
+            "----------------\n" +
+            "BASKET CONTENT\n" +
+            "----------------\n" +
+            "ITEM\tQUANTITY\n");
     for (Map.Entry<Item, Integer> e : this.items.entrySet()) {
-      sb.append(e.getKey().getName()).append("\t\t").append(e.getValue()).append("\n");
+      bStr.append(e.getKey().getName()).append("\t\t").append(e.getValue()).append("\n");
     }
-    sb.append("----------------\n");
-    sb.append("TOTAL\t");
-    sb.append(String.format("%.2f %c", calculateFullPrice(), (char) 163));
-    return sb.toString();
+    bStr.append("----------------\n" + "TOTAL\t")
+            .append(String.format("%.2f %c", calculateFullPrice(), (char) 163));
+    return bStr.toString();
   }
 
 }
