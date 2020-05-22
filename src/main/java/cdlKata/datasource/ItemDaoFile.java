@@ -103,6 +103,31 @@ public class ItemDaoFile implements Dao<Item> {
 
   @Override
   public void delete(Item item) {
+    if(!this.get(item.getName()).isPresent()) {
+      System.out.println("Item '" + item.getName() + "' NOT in the system");
+      return;
+    }
 
+    String fileContents = null;
+    try(Scanner sc = new Scanner(new File(FILE_DATA_SOURCE))) {
+      StringBuilder buffer = new StringBuilder();
+      while (sc.hasNextLine()) {
+        String itLine = sc.nextLine();
+        if(!itLine.split(",")[0].equalsIgnoreCase(item.getName()))
+          buffer.append(itLine).append(System.lineSeparator());
+      }
+      fileContents = buffer.toString();
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
+
+    try (FileWriter writer = new FileWriter(FILE_DATA_SOURCE)) {
+      if(fileContents != null) {
+        writer.append(fileContents.trim());
+        writer.flush();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

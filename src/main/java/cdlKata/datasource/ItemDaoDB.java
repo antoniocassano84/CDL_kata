@@ -88,6 +88,12 @@ public class ItemDaoDB implements Dao<Item> {
       return;
     }
 
+    Optional<Item> opIt = this.get(item.getName());
+    if(!opIt.isPresent()) {
+      System.out.println("Item '" + item.getName() + "' not found");
+      return;
+    }
+
     String query = "REPLACE INTO Items(name, unitPrice, minAmount, specialPrice)\n" +
                    "VALUES('" + item.getName() + "', " + params[0] + ", " + params[1] + ", "+ params[2] +")";
     try (Connection conn = DriverManager.getConnection(CONNECTION_STRING);

@@ -12,8 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -41,7 +40,6 @@ class ItemDaoTest {
     );
   }
 
-
   @ParameterizedTest
   @MethodSource("sourceMethod")
   @Order(1)
@@ -61,17 +59,25 @@ class ItemDaoTest {
     else fail("Item C not found");
   }
 
-
   @ParameterizedTest
   @MethodSource("sourceMethod")
   @Order(3)
+  void getMissingItem(Dao<Item> dao) {
+    Optional<Item> opItem = dao.get("X");
+    assertFalse(opItem.isPresent());
+  }
+
+
+  @ParameterizedTest
+  @MethodSource("sourceMethod")
+  @Order(4)
   void getAllSize(Dao<Item> dao) {
     assertEquals(4, dao.getAll().size());
   }
 
   @ParameterizedTest
   @MethodSource("sourceMethod")
-  @Order(4)
+  @Order(5)
   void saveAddNewItemWithSpecialPrice(Dao<Item> dao) {
     dao.save(itemE);
     assertEquals(5, dao.getAll().size());
@@ -79,7 +85,7 @@ class ItemDaoTest {
 
   @ParameterizedTest
   @MethodSource("sourceMethod")
-  @Order(5)
+  @Order(6)
   void saveAddNewItemWithOutSpecialPrice(Dao<Item> dao) {
     dao.save(itemF);
     assertEquals(6, dao.getAll().size());
@@ -87,7 +93,7 @@ class ItemDaoTest {
 
   @ParameterizedTest
   @MethodSource("sourceMethod")
-  @Order(6)
+  @Order(7)
   void saveExistingItemE(Dao<Item> dao) {
     dao.save(itemE);
     assertEquals(6, dao.getAll().size());
@@ -95,28 +101,26 @@ class ItemDaoTest {
 
   @ParameterizedTest
   @MethodSource("sourceMethod")
-  @Order(7)
-  void update(Dao<Item> dao) {
+  @Order(8)
+  void updateExistingItem(Dao<Item> dao) {
     dao.update(itemF, new String[] {"3.00", "4", "10.00"});
     Optional<Item> updatedItemF = dao.get("F");
-    assertEquals(3.00, updatedItemF.get().getUnitPrice());
-  }
-
-  @ParameterizedTest
-  @MethodSource("sourceMethod")
-  @Order(8)
-  void deleteF(Dao<Item> dao) {
-    dao.delete(itemF);
-    Optional<Item> opItem = dao.get("F");
-    assertEquals(5, dao.getAll().size());
+    updatedItemF.ifPresent(item -> assertEquals(3.00, item.getUnitPrice()));
   }
 
   @ParameterizedTest
   @MethodSource("sourceMethod")
   @Order(9)
+  void deleteF(Dao<Item> dao) {
+    dao.delete(itemF);
+    assertEquals(5, dao.getAll().size());
+  }
+
+  @ParameterizedTest
+  @MethodSource("sourceMethod")
+  @Order(10)
   void deleteE(Dao<Item> dao) {
     dao.delete(itemE);
-    Optional<Item> opItem = dao.get("E");
     assertEquals(4, dao.getAll().size());
   }
 }
