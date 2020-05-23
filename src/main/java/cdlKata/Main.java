@@ -4,7 +4,7 @@ public class Main {
 
   public static void main(String[] args) {
 
-    Till till = new Till();
+    Till till = new Till(Till.readFromDBOrFile());  // Select File or DB
     Basket basket = new Basket();
     String line;
     Checkout checkout = new Checkout(basket);

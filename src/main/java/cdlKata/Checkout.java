@@ -41,22 +41,18 @@ public class Checkout {
    */
   public double toPay() {
     double topay = 0.0;
-    Item item;
-    int amount;
     for (Map.Entry<Item, Integer> e : basket.getItems().entrySet()) {
-      item = e.getKey();
-      amount = e.getValue();
-      if(item.getMinAmount() == 0)  // no deals
-        topay += (item.getUnitPrice() * amount);
-      else {  // with deals
-        int group = amount / item.getMinAmount();
-        topay += group * item.getSpecialPrice();
-        int spare = amount % item.getMinAmount();
-        topay += spare * item.getUnitPrice();
-      }
-    }  // end for
+      Item item = e.getKey();
+      int amount = e.getValue();
+      int minAmount = item.getMinAmount();
+      int groupOfDiscountedItems = minAmount == 0 ? 0 : amount / minAmount;
+      int nonDiscountedItems = minAmount == 0 ? amount : amount % minAmount;
+      topay += groupOfDiscountedItems * item.getSpecialPrice() +
+               nonDiscountedItems * item.getUnitPrice();
+    }
     return topay;
   }
+
 
   /**
    *It prints out a checkout information as well as the basket.
