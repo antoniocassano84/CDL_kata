@@ -13,11 +13,14 @@ public class Main {
     till.printCatalog();
 
     do {
-      // Scan an item from command line:
+      // Scan an item from command line
       line = till.scanItemFromCmdLine();
       if(line == null) break;
+
+      // Print the total to pay
       checkout = till.produceCheckout(line, basket);
       System.out.println(checkout);
+
     } while(!line.trim().equals(""));
 
     System.out.println(checkout);

@@ -8,10 +8,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * This class implements a File-specific version of the Dao<Item> interface.
+ * it simply implements the methods declared in Dao<T>.
+ */
 public class ItemDaoFile implements Dao<Item> {
 
   private static final String FILE_DATA_SOURCE = "src\\main\\resources\\CdlItems.csv";
 
+  /** It retrieves an optional Item from its unique name.
+   * @param s This is the object's unique name (i.e. primary key).
+   * @return Returns an optional object of type Item from the csv file.
+   */
   @Override
   public Optional<Item> get(String s) {
     try (Scanner input = new Scanner(new File(FILE_DATA_SOURCE))) {
@@ -28,6 +36,9 @@ public class ItemDaoFile implements Dao<Item> {
     return Optional.empty();
   }
 
+  /** This method implements the "Read" part of the CRUD operations.
+   * @return All the objects in the csv file.
+   */
   @Override
   public List<Item> getAll() {
     List<Item> items = new LinkedList<>();
@@ -41,6 +52,10 @@ public class ItemDaoFile implements Dao<Item> {
     return items;
   }
 
+  /** This method implements the "Create" part of the CRUD operations. it allows to add
+   *  object to the csv file to be read after.
+   * @param item This is the Item to be stored in the csv file for future reads.
+   */
   @Override
   public void save(Item item) {
 
@@ -60,6 +75,10 @@ public class ItemDaoFile implements Dao<Item> {
     }
   }
 
+  /** This method implements the "Update" part of the CRUD operations.
+   * @param item This is the Item to be updated in the csv file for future reads.
+   * @param params This represents the field to be changed for the specific Item.
+   */
   @Override
   public void update(Item item, String[] params) {
 
@@ -101,6 +120,9 @@ public class ItemDaoFile implements Dao<Item> {
 
   }
 
+  /** This method implements the "Delete" part of the CRUD operations.
+   * @param item This is the item to be removed from the csv file.
+   */
   @Override
   public void delete(Item item) {
     if(!this.get(item.getName()).isPresent()) {

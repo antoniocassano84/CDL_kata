@@ -9,7 +9,7 @@ import java.util.Optional;
 
 /**
  * This class implements a DB-specific version of the Dao<Item> interface.
- * it simply overloads the methods declared in Dao<T>.
+ * it simply implements the methods declared in Dao<T>.
  */
 public class ItemDaoDB implements Dao<Item> {
 
