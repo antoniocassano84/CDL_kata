@@ -7,10 +7,18 @@ import cdlKata.datasource.ItemDaoFile;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * This class holds some till functionality like scan an item or print catalog.
+ * It contains a reference to a DAO<Item> object
+ */
 public class Till {
 
   private Dao<Item> dao;
 
+  /** This builds a Till object from a string indicating whether the user wants to read the catalog
+   * from the DB or from the csv file.
+   * @param fileORdb this string is either "DB" or "FILE". BY default, the program reads from DB
+   */
   public Till(String fileORdb) {
     switch (fileORdb) {
       case "FILE":
@@ -23,6 +31,11 @@ public class Till {
     }
   }
 
+  /**
+   * This function is used in Till's constructor to determine the type of
+   * implementation of the DAO class to use.
+   * @return A string which contains either "DB" or "FILE".
+   */
   public static String readFromDBOrFile() {
     String fileOrDB;
     do {
@@ -36,6 +49,9 @@ public class Till {
     return fileOrDB;
   }
 
+  /** This function reads the user input for an item to be added or remove from the system.
+   * @return the line as entered bu the user or null if the user typed an empty string.
+   */
   public String scanItemFromCmdLine() {
     String line;
     Scanner scanner = new Scanner(System.in);
@@ -44,6 +60,12 @@ public class Till {
     return line.trim().equals("") ? null : line;
   }
 
+  /** This function parses the line as entered by the user in the scanItemFromCmdLine and either
+   *  add  or remove the correspoding item from the Basket object provided as parameter.
+   * @param line this is the line as returned from scanItemFromCmdLine.
+   * @param basket this is the Basket object to manipulate.
+   * @return it returns a Checkout object which could be directly printed to know the amount to pay.
+   */
   public Checkout produceCheckout(String line, Basket basket) {
     boolean remove = line.startsWith("-");
     if(remove) line = line.substring(1);
@@ -63,6 +85,10 @@ public class Till {
     return new Checkout(basket);
   }
 
+  /**
+   * This function simply uses the DAO getALL function to printout
+   * the list of all available items in the system.
+   */
   public void printCatalog() {
     System.out.println("-----------");
     System.out.println(" I T E M S ");
