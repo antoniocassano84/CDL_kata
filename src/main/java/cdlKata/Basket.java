@@ -74,6 +74,25 @@ public class Basket {
   }
 
   /**
+   * This method calculates the amount to pay at the till which
+   * includes the special prices for each item (if there is a deal on that specific item)
+   * @return it returns the amount a customer has to pay for its shopping basket.
+   */
+  public double toPay() {
+    double topay = 0.0;
+    for (Map.Entry<Item, Integer> e : this.getItems().entrySet()) {
+      Item item = e.getKey();
+      int amount = e.getValue();
+      int groupOfDiscountedItems = item.getMinAmount() == 0 ? 0 : amount / item.getMinAmount();
+      int nonDiscountedItems = item.getMinAmount() == 0 ? amount : amount % item.getMinAmount();
+      topay += groupOfDiscountedItems * item.getSpecialPrice() +
+              nonDiscountedItems * item.getUnitPrice();
+    }
+    return topay;
+  }
+
+
+  /**
    * It prints out a basket. See an example here below:
    * ----------------
    * BASKET CONTENT
@@ -100,6 +119,9 @@ public class Basket {
     }
     bStr.append("----------------\n" + "TOTAL\t")
             .append(String.format("%.2f %c", calculateFullPrice(), (char) 163));
+    bStr.append("\n----------------\n" +
+                "TO PAY\t" +
+                String.format("%.2f %c", this.toPay(), (char) 163));
     return bStr.toString();
   }
 

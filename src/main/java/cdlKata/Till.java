@@ -66,7 +66,7 @@ public class Till {
    * @param basket this is the Basket object to manipulate.
    * @return it returns a Checkout object which could be directly printed to know the amount to pay.
    */
-  public Checkout produceCheckout(String line, Basket basket) {
+  public void produceCheckout(String line, Basket basket) {
     boolean remove = line.startsWith("-");
     if(remove) line = line.substring(1);
     Optional<Item> optItem = this.dao.get(line);
@@ -82,8 +82,26 @@ public class Till {
         basket.addItemToBasket(item);
       }
     }
-    return new Checkout(basket);
   }
+
+//  public Checkout produceCheckout(String line, Basket basket) {
+//    boolean remove = line.startsWith("-");
+//    if(remove) line = line.substring(1);
+//    Optional<Item> optItem = this.dao.get(line);
+//    if(!optItem.isPresent()) {
+//      System.out.println("No item named '" + line + "' in the system");
+//    }
+//    else {
+//      Item item = optItem.get();
+//      if(remove) { // remove item from the basket
+//        if(basket.removeItemFromBasket(item) == -1)
+//          System.out.println("Not possible to remove " + line);
+//      } else { // add item to basket
+//        basket.addItemToBasket(item);
+//      }
+//    }
+//    return new Checkout(basket);
+//  }
 
   /**
    * This function simply uses the DAO getALL function to printout

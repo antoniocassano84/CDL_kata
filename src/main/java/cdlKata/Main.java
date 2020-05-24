@@ -7,7 +7,6 @@ public class Main {
     Till till = new Till(Till.readFromDBOrFile());  // Select File or DB
     Basket basket = new Basket();
     String line;  // Here we out user input from Scanner on cmd line
-    Checkout checkout = new Checkout(basket);
 
     // Print the catalog
     till.printCatalog();
@@ -18,11 +17,11 @@ public class Main {
       if(line == null) break;
 
       // Print the total to pay
-      checkout = till.produceCheckout(line, basket);
-      System.out.println(checkout);
+      till.produceCheckout(line, basket);
+      System.out.println(basket);
 
     } while(!line.trim().equals(""));  // end if user input empty string
 
-    System.out.println(checkout);
+    System.out.println(basket);
   }
 }

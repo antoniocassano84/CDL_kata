@@ -152,6 +152,51 @@ class BasketTest {
   }
 
   @Test
+  void toPayWhenEmptyBasket() {
+    assertEquals(0.00, basket.toPay(), 0.01);
+  }
+
+  @Test
+  void toPayWhenNoItemWithSpecialPriceInBasket() {
+    basket.addItemToBasket(itemC);
+    basket.addItemToBasket(itemC);
+    basket.addItemToBasket(itemC);
+    assertEquals(0.60, basket.toPay(), 0.01);
+  }
+
+  @Test
+  void toPayWhenNoDealInBasket() {
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemB);
+    assertEquals(1.30, basket.toPay(), 0.01);
+  }
+
+  @Test
+  void toPayWhenDealInBasket() {
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemB);
+    basket.addItemToBasket(itemB);
+    assertEquals(1.75, basket.toPay(), 0.01);
+  }
+
+  @Test
+  void toPayWhenEightItemsInBasket() {
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemA);
+    basket.addItemToBasket(itemB);
+    basket.addItemToBasket(itemB);
+    basket.addItemToBasket(itemB);
+    basket.addItemToBasket(itemC);
+    assertEquals(2.75, basket.toPay(), 0.01);
+  }
+
+
+  @Test
   void printBasket() {
     basket.addItemToBasket(itemA);
     basket.addItemToBasket(itemC);
@@ -163,6 +208,9 @@ class BasketTest {
             "C\t\t1\n" +
             "----------------\n" +
             "TOTAL\t0.70 " +
+            (char) 163 +
+            "\n----------------\n" +
+            "TO PAY\t0.70 " +
             (char) 163;
     assertEquals(sb, basket.toString());
   }
@@ -179,6 +227,9 @@ class BasketTest {
             "A\t\t1\n" +
             "----------------\n" +
             "TOTAL\t0.70 " +
+            (char) 163 +
+            "\n----------------\n" +
+            "TO PAY\t0.70 " +
             (char) 163;
     assertEquals(sb, basket.toString());
   }
@@ -197,6 +248,9 @@ class BasketTest {
             "C\t\t2\n" +
             "----------------\n" +
             "TOTAL\t1.40 " +
+            (char) 163 +
+            "\n----------------\n" +
+            "TO PAY\t1.40 " +
             (char) 163;
     assertEquals(sb, basket.toString());
   }
@@ -215,18 +269,24 @@ class BasketTest {
             "C\t\t2\n" +
             "----------------\n" +
             "TOTAL\t1.40 " +
+            (char) 163 +
+            "\n----------------\n" +
+            "TO PAY\t1.40 " +
             (char) 163;
     assertEquals(sb, basket.toString());
   }
 
   @Test
-  void printEmptyBasket() {
+  void printCheckoutTopayWithEmptyBasket() {
     String sb = "----------------\n" +
             "BASKET CONTENT\n" +
             "----------------\n" +
             "ITEM\tQUANTITY\n" +
             "----------------\n" +
             "TOTAL\t0.00 " +
+            (char) 163 +
+            "\n----------------\n" +
+            "TO PAY\t0.00 " +
             (char) 163;
     assertEquals(sb, basket.toString());
   }
