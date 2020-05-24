@@ -7,6 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class implements a DB-specific version of the Dao<Item> interface.
+ * it simply overloads the methods declared in Dao<T>.
+ */
 public class ItemDaoDB implements Dao<Item> {
 
   private static final String CONNECTION_STRING = "jdbc:sqlite:src\\main\\resources\\CdlItems.db";
@@ -14,7 +18,10 @@ public class ItemDaoDB implements Dao<Item> {
   public static final String QUERY_ITEM_BY_NAME = QUERY_GET_ALL_ITEMS + " WHERE Items.name='";
 
 
-
+  /** It retrieves an optional Item from its unique name.
+   * @param s This is the object's unique name (i.e. primary key).
+   * @return Returns an optional object of type Item from the DB.
+   */
   @Override
   public Optional<Item> get(String s) {
     Item item;
@@ -33,6 +40,9 @@ public class ItemDaoDB implements Dao<Item> {
     }
   }
 
+  /** This method implements the "Read" part of the CRUD operations.
+   * @return All the objects in the DB.
+   */
   @Override
   public List<Item> getAll() {
     List<Item> items = new LinkedList<>();
@@ -50,6 +60,10 @@ public class ItemDaoDB implements Dao<Item> {
     }
   }
 
+  /** This method implements the "Create" part of the CRUD operations. it allows to add
+   *  object to the DB to be read after.
+   * @param item This is the Item to be stored in the DB for future reads.
+   */
   @Override
   public void save(Item item) {
     Optional<Item> optItem = this.get(item.getName());
@@ -80,6 +94,10 @@ public class ItemDaoDB implements Dao<Item> {
     }
   }
 
+  /** This method implements the "Update" part of the CRUD operations.
+   * @param item This is the Item to be updated in the DB for future reads.
+   * @param params This represents the field to be changed for the specific Item.
+   */
   @Override
   public void update(Item item, String[] params) {
 
@@ -104,6 +122,9 @@ public class ItemDaoDB implements Dao<Item> {
     }
   }
 
+  /** This method implements the "Delete" part of the CRUD operations.
+   * @param item This is the item to be removed from the DB.
+   */
   @Override
   public void delete(Item item) {
     String query = "DELETE FROM Items WHERE name='" + item.getName() + "'";
@@ -114,4 +135,5 @@ public class ItemDaoDB implements Dao<Item> {
       System.out.println(e.getMessage());
     }
   }
+
 }

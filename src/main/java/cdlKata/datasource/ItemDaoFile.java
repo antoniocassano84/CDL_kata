@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class ItemDaoFile implements Dao<Item> {
 
-  private static final String FILE_DATA_SOURCE = "src\\main\\resources\\itemsDB.csv";
+  private static final String FILE_DATA_SOURCE = "src\\main\\resources\\CdlItems.csv";
 
   @Override
   public Optional<Item> get(String s) {

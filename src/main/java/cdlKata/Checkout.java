@@ -44,9 +44,8 @@ public class Checkout {
     for (Map.Entry<Item, Integer> e : basket.getItems().entrySet()) {
       Item item = e.getKey();
       int amount = e.getValue();
-      int minAmount = item.getMinAmount();
-      int groupOfDiscountedItems = minAmount == 0 ? 0 : amount / minAmount;
-      int nonDiscountedItems = minAmount == 0 ? amount : amount % minAmount;
+      int groupOfDiscountedItems = item.getMinAmount() == 0 ? 0 : amount / item.getMinAmount();
+      int nonDiscountedItems = item.getMinAmount() == 0 ? amount : amount % item.getMinAmount();
       topay += groupOfDiscountedItems * item.getSpecialPrice() +
                nonDiscountedItems * item.getUnitPrice();
     }

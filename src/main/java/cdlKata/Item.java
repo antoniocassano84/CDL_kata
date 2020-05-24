@@ -2,7 +2,7 @@ package cdlKata;
 
 /**
  * The Item class models a single item to buy. This will hold all the information related to
- * a single item which match columns' names in the itemsDB.csv, namely:
+ * a single item which match columns' names in the CdlItems.csv, namely:
  *
  * "name"         : This is the name of the item as String and must be unique since this is the SKU
  *                  (Stock Keeping Units, or SKUs) -> e.g. "A";
