@@ -17,7 +17,7 @@ public class Main {
       if(line == null) break;
 
       // Print the total to pay
-      till.produceCheckout(line, basket);
+      till.parseUserInput(line, basket);
       System.out.println(basket);
 
     } while(!line.trim().equals(""));  // end if user input empty string
