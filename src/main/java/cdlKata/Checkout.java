@@ -11,15 +11,15 @@ import java.util.Scanner;
  * This class holds some till functionality like scan an item or print catalog.
  * It contains a reference to a DAO<Item> object
  */
-public class Till {
+public class Checkout {
 
   private Dao<Item> dao;
 
-  /** This builds a Till object from a string indicating whether the user wants to read the catalog
+  /** This builds a Checkout object from a string indicating whether the user wants to read the catalog
    * from the DB or from the csv file.
    * @param fileORdb this string is either "DB" or "FILE". BY default, the program reads from DB
    */
-  public Till(String fileORdb) {
+  public Checkout(String fileORdb) {
     switch (fileORdb) {
       case "FILE":
         this.dao = new ItemDaoFile();
@@ -32,7 +32,7 @@ public class Till {
   }
 
   /**
-   * This function is used in Till's constructor to determine the type of
+   * This function is used in Checkout's constructor to determine the type of
    * implementation of the DAO class to use.
    * @return A string which contains either "DB" or "FILE".
    */
