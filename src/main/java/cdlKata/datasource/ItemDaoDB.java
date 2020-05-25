@@ -3,7 +3,7 @@ package cdlKata.datasource;
 import cdlKata.Item;
 
 import java.sql.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +45,7 @@ public class ItemDaoDB implements Dao<Item> {
    */
   @Override
   public List<Item> getAll() {
-    List<Item> items = new LinkedList<>();
+    List<Item> items = new ArrayList<>();
     try (Connection conn = DriverManager.getConnection(CONNECTION_STRING);
          Statement statement = conn.createStatement();
          ResultSet results = statement.executeQuery(QUERY_GET_ALL_ITEMS)) {

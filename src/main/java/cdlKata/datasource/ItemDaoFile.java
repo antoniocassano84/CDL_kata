@@ -2,8 +2,10 @@ package cdlKata.datasource;
 
 import cdlKata.Item;
 
-import java.io.*;
-import java.util.LinkedList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -41,7 +43,7 @@ public class ItemDaoFile implements Dao<Item> {
    */
   @Override
   public List<Item> getAll() {
-    List<Item> items = new LinkedList<>();
+    List<Item> items = new ArrayList<>();
     try (Scanner input = new Scanner(new File(FILE_DATA_SOURCE))) {
       input.nextLine(); // skip header
       while(input.hasNext())
