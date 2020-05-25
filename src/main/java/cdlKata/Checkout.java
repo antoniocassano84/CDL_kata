@@ -65,7 +65,7 @@ public class Checkout {
    * @param line this is the line as returned from scanItemFromCmdLine.
    * @param basket this is the Basket object to manipulate.
    */
-  public void parseUserInput(String line, Basket basket) {
+  public void updateBasket(String line, Basket basket) {
     boolean remove = line.startsWith("-");
     if(remove) line = line.substring(1);
     Optional<Item> optItem = this.dao.get(line);

@@ -119,9 +119,8 @@ public class Basket {
     }
     bStr.append("----------------\n" + "TOTAL\t")
             .append(String.format("%.2f %c", calculateFullPrice(), (char) 163));
-    bStr.append("\n----------------\n" +
-                "TO PAY\t" +
-                String.format("%.2f %c", this.toPay(), (char) 163));
+    bStr.append("\n----------------\n" + "TO PAY\t")
+            .append(String.format("%.2f %c", this.toPay(), (char) 163));
     return bStr.toString();
   }
 
