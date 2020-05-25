@@ -14,8 +14,8 @@ import java.util.Optional;
 public class ItemDaoDB implements Dao<Item> {
 
   private static final String CONNECTION_STRING = "jdbc:sqlite:src\\main\\resources\\CdlItems.db";
-  public static final String QUERY_GET_ALL_ITEMS = "SELECT * FROM Items";
-  public static final String QUERY_ITEM_BY_NAME = QUERY_GET_ALL_ITEMS + " WHERE Items.name='";
+  private static final String QUERY_GET_ALL_ITEMS = "SELECT * FROM Items";
+  private static final String QUERY_ITEM_BY_NAME = QUERY_GET_ALL_ITEMS + " WHERE Items.name='";
 
 
   /** It retrieves an optional Item from its unique name.
