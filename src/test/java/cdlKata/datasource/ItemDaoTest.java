@@ -45,8 +45,7 @@ class ItemDaoTest {
   @Order(1)
   void getItemA(Dao<Item> dao) {
     Optional<Item> opItem = dao.get("A");
-    if(opItem.isPresent()) assertEquals(itemA, opItem.get());
-    else fail("Item A not found");
+    opItem.ifPresent(item -> assertEquals(itemA, opItem.get()));
 
   }
 
@@ -55,8 +54,7 @@ class ItemDaoTest {
   @Order(2)
   void getItemC(Dao<Item> dao) {
     Optional<Item> opItem = dao.get("C");
-    if(opItem.isPresent()) assertEquals(itemC, opItem.get());
-    else fail("Item C not found");
+    opItem.ifPresent(item -> assertEquals(itemC, opItem.get()));
   }
 
   @ParameterizedTest
