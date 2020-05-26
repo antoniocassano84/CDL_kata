@@ -5,8 +5,6 @@ plugins {
 group 'com.cdl'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
-
 repositories {
     mavenCentral()
 }
@@ -16,7 +14,6 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:' + junitVersion
     testCompile 'org.junit.jupiter:junit-jupiter-engine:' + junitVersion
     testCompile 'org.junit.jupiter:junit-jupiter-params:' + junitVersion
-
 
     compile group:'org.xerial', name:'sqlite-jdbc', version:'3.8.11.2'
 }
